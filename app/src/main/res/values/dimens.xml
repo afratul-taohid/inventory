@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cliniva_dialog_content_bottom_margin">50dp</dimen>
+</resources>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Enventory</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+
+    <string-array name="product">
+        <item>C/A</item>
+        <item>A/C</item>
+        <item>C/B</item>
+        <item>B/A</item>
+        <item>E/A</item>
+    </string-array>
+</resources>

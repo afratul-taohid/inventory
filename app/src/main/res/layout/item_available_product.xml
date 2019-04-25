@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/product_item"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horse"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_product"
+            android:layout_toEndOf="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(A/C)"
+            android:textColor="@color/item_color"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_product_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300 gsm"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"/>
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/rl_header"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+
+        <TextView
+            android:layout_alignParentStart="true"
+            android:id="@+id/tv_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unit"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+        <EditText
+            android:layout_below="@id/tv_unit"
+            android:id="@+id/et_unit"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:hint="3"
+            android:textColor="@color/item_color"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:inputType="numberDecimal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:background="@drawable/unit_background"/>
+
+        <TextView
+            android:id="@+id/tv_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_alignTop="@+id/et_unit"
+            android:layout_alignBottom="@+id/et_unit"
+            android:layout_below="@+id/tv_unit"
+            android:layout_toEndOf="@+id/et_unit"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_centerVertical="false"
+            />
+
+        <TextView
+            android:id="@+id/tv_unit_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/et_unit_price"
+            android:layout_toEndOf="@+id/tv_unit"
+            android:text="Price per unit"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:layout_below="@id/tv_unit_price"
+            android:id="@+id/et_unit_price"
+            android:layout_toEndOf="@+id/tv_x"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:hint="200"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="end|center_vertical"
+            android:background="@drawable/unit_background"/>
+
+        <TextView
+            android:id="@+id/tv_price_bdt"
+            android:gravity="center"
+            android:layout_alignTop="@id/et_unit_price"
+            android:layout_alignBottom="@id/et_unit_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BDT"
+            android:paddingStart="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_toEndOf="@+id/et_unit_price"
+            android:layout_below="@+id/tv_unit_price"/>
+
+        <TextView
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:layout_alignParentEnd="false"
+            android:id="@+id/tv_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4CAF50"
+            android:layout_alignTop="@+id/tv_price_bdt"
+            android:layout_alignBottom="@+id/tv_price_bdt"
+            android:gravity="center"
+            android:layout_below="@+id/tv_total"
+            android:layout_toStartOf="@+id/tv_total_amount_bdt"
+            android:text="600"
+            android:paddingEnd="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tv_total_amount_bdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_total"
+            android:text="BDT"
+            android:layout_alignTop="@+id/tv_total_amount"
+            android:layout_alignBottom="@+id/tv_total_amount"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <ImageButton
+            android:id="@+id/ib_available_product_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check_circle"
+            android:layout_below="@+id/tv_total_amount_bdt"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="25dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
