@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cliniva.enventory.R;
-import com.cliniva.enventory.listdata.AddProductList;
+import com.cliniva.enventory.model.AddProductList;
 import com.cliniva.enventory.viewholder.AddProductListViewHolder;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class AddProductListAdapter extends RecyclerView.Adapter<AddProductListVi
     @Override
     public AddProductListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View viewAddProduct = LayoutInflater.from(context_add_product).inflate(R.layout.add_product_list,viewGroup,false);
+        View viewAddProduct = LayoutInflater.from(context_add_product).inflate(R.layout.item_add_product,viewGroup,false);
 
         return new AddProductListViewHolder(viewAddProduct);
     }

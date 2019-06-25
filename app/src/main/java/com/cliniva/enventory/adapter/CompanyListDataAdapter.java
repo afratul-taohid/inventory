@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cliniva.enventory.viewholder.CompanyListViewHolder;
-import com.cliniva.enventory.listdata.OurDataSet;
+import com.cliniva.enventory.model.Transaction;
 import com.cliniva.enventory.R;
 
 import java.util.List;
 
 public class CompanyListDataAdapter extends RecyclerView.Adapter<CompanyListViewHolder> {
 
-    private List<OurDataSet> list;
+    private List<Transaction> list;
     private Context context;
 
 
-    public CompanyListDataAdapter(List<OurDataSet> list, Context context) {
+    public CompanyListDataAdapter(List<Transaction> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -28,16 +28,14 @@ public class CompanyListDataAdapter extends RecyclerView.Adapter<CompanyListView
     @Override
     public CompanyListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_company_view,viewGroup,false);
-
-
+        View view = LayoutInflater.from(context).inflate(R.layout.item_unpaid,viewGroup,false);
         return new CompanyListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CompanyListViewHolder companyListViewHolder, int i) {
 
-        OurDataSet currentdata = list.get(i);
+        Transaction currentdata = list.get(i);
 
         companyListViewHolder.name.setText(currentdata.getName());
         companyListViewHolder.price.setText(currentdata.getPrice());

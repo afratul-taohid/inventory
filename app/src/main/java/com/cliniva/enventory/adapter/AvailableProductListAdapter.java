@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cliniva.enventory.R;
-import com.cliniva.enventory.listdata.AvailableProductList;
+import com.cliniva.enventory.model.AvailableProductList;
 import com.cliniva.enventory.viewholder.AvailableProductListViewHolder;
 
 import java.util.List;

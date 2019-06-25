@@ -6,12 +6,16 @@
             tools:ignore="NewApi">
             <item>
                 <shape android:shape="oval" >
-
                     <solid android:color="#ffffff"/>
                 </shape>
             </item>
         </ripple>
     </item>
 
-    <item android:drawable="@drawable/ic_check_black_24dp"/>
+    <item
+        android:top="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:bottom="2dp"
+        android:drawable="@drawable/ic_check_black_24dp"/>
 </layer-list>

@@ -10,4 +10,12 @@
         <item>B/A</item>
         <item>E/A</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_home">Home</string>
+    <string name="action_product">Product</string>
+    <string name="action_customer">Customer</string>
+    <string name="action_suppliers">Suppliers</string>
+    <string name="action_more">More</string>
 </resources>

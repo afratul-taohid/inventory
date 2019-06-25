@@ -2,19 +2,22 @@
 <layer-list xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <ripple android:color="@color/white"
+        <ripple android:color="?attr/colorControlHighlight"
             tools:ignore="NewApi">
             <item>
                 <shape android:shape="oval" >
-
-                    <solid android:color="#ffffff"/>
-                    <stroke android:color="@color/border_color"
-                        android:width=".5dp"/>
+                    <stroke android:color="#707070"
+                        android:width="0.5dp"/>
                 </shape>
             </item>
         </ripple>
     </item>
 
-
-    <item android:drawable="@drawable/ic_check_pink_24dp"/>
+    <item
+        android:left="@dimen/_2sdp"
+        android:right="@dimen/_2sdp"
+        android:top="@dimen/_2sdp"
+        android:bottom="@dimen/_2sdp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_check_pink_24dp"/>
 </layer-list>

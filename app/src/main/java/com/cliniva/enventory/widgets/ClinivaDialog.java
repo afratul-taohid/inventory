@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,11 +54,7 @@ public class ClinivaDialog extends Dialog {
 
         contentBottomMargin = (int) context.getResources().getDimension(R.dimen.cliniva_dialog_content_bottom_margin);
 
-        View dialogCliniva = LayoutInflater.from(context).inflate(R.layout.dialog_cliniva, null, false);
-
-        tvPositive = dialogCliniva.findViewById(R.id.tv_positive);
-        tvNegative = dialogCliniva.findViewById(R.id.tv_negative);
-        tvMessage = dialogCliniva.findViewById(R.id.tv_message);
+        View dialogCliniva = LayoutInflater.from(context).inflate(R.layout.dialog_available_product, null, false);
         content = dialogCliniva.findViewById(R.id.rl_content);
 
         if (dialogView != null){
