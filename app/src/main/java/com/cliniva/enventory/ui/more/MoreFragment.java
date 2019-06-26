@@ -15,8 +15,9 @@ import com.cliniva.enventory.ui.base.BaseFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MoreFragment extends BaseFragment {
+public class MoreFragment extends BaseFragment implements MoreContract.View {
 
+    private MoreContract.Presenter mMorePresenter;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -37,10 +38,12 @@ public class MoreFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMorePresenter = new MorePresenter(this);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setToolbar(view, mMorePresenter.getContext().getString(R.string.action_more), false);
     }
 }

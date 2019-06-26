@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.cliniva.enventory.R;
 
-public class CompanyListViewHolder extends RecyclerView.ViewHolder {
+public class UnpaidHolder extends RecyclerView.ViewHolder {
 
     public TextView name;
     public TextView price;
     public TextView date;
 
-    public CompanyListViewHolder(@NonNull View itemView) {
+    public UnpaidHolder(@NonNull View itemView) {
         super(itemView);
 
         name = itemView.findViewById(R.id.tv_company_name);

@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="customer"
+            name="supplier"
             type="com.cliniva.enventory.model.Customer" />
     </data>
 
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{customer.name}"
+            android:text="@{supplier.name}"
             android:textColor="@color/colorTextTitle"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@string/hint_receivable_amount"
+            android:text="@string/hint_payable_amount"
             android:layout_marginTop="@dimen/_8sdp"
             android:textColor="#383938"
             android:textSize="@dimen/_12sdp"
@@ -52,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:text="@{customer.amount}"
+            android:text="@{supplier.amount}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_item_amount_hint"
             android:textColor="#F76262"
             android:textSize="@dimen/_12sdp"
@@ -75,7 +74,7 @@
 
         <TextView
             android:id="@+id/tv_item_invoice_date"
-            android:text="@{customer.lastInvoiceDate}"
+            android:text="@{supplier.lastInvoiceDate}"
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/colorTextSubTitle"
             android:layout_width="wrap_content"

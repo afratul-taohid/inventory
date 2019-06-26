@@ -1,4 +1,4 @@
-package com.cliniva.enventory.ui.home;
+package com.cliniva.enventory.ui.main;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import com.cliniva.enventory.R;
 import com.cliniva.enventory.ui.base.BaseActivity;
+import com.cliniva.enventory.ui.customer.CustomerFragment;
+import com.cliniva.enventory.ui.home.HomeFragment;
+import com.cliniva.enventory.ui.more.MoreFragment;
+import com.cliniva.enventory.ui.product.ProductFragment;
+import com.cliniva.enventory.ui.supplier.SupplierFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -31,12 +36,16 @@ public class MainActivity extends BaseActivity {
                 onFragmentTransaction(HomeFragment.getInstance());
                 return true;
             case R.id.menu_product:
+                onFragmentTransaction(ProductFragment.getInstance());
                 return true;
             case R.id.menu_customer:
+                onFragmentTransaction(CustomerFragment.getInstance());
                 return true;
             case R.id.menu_suppliers:
+                onFragmentTransaction(SupplierFragment.getInstance());
                 return true;
             case R.id.menu_more:
+                onFragmentTransaction(MoreFragment.getInstance());
                 return true;
         }
         return false;

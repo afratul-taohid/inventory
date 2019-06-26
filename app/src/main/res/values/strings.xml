@@ -18,4 +18,6 @@
     <string name="action_customer">Customer</string>
     <string name="action_suppliers">Suppliers</string>
     <string name="action_more">More</string>
+    <string name="hint_payable_amount">Payable amount:</string>
+    <string name="hint_receivable_amount">Receivable amount:</string>
 </resources>

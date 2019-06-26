@@ -15,7 +15,6 @@ public class Transaction {
     @Expose
     private String date;
 
-
     public Transaction(String name, String price, String date) {
         this.name = name;
         this.price = price;

@@ -13,9 +13,9 @@
     </item>
 
     <item
-        android:top="2dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:bottom="2dp"
+        android:top="@dimen/_5sdp"
+        android:left="@dimen/_5sdp"
+        android:right="@dimen/_5sdp"
+        android:bottom="@dimen/_5sdp"
         android:drawable="@drawable/ic_check_black_24dp"/>
 </layer-list>

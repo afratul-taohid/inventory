@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.customer.CustomerFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
         layout="@layout/action_bar"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_customer_list"
+        android:id="@+id/rv_supplier_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingBottom="@dimen/_60sdp"

@@ -5,6 +5,11 @@ package com.cliniva.enventory.ui.customer;
 
 import android.content.Context;
 
+import com.cliniva.enventory.model.Customer;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerPresenter implements CustomerContract.Presenter {
 
     private CustomerContract.View mCustomerView;
@@ -16,5 +21,15 @@ public class CustomerPresenter implements CustomerContract.Presenter {
     @Override
     public Context getContext() {
         return mCustomerView.getApp().getApplicationContext();
+    }
+
+    @Override
+    public void onLoadList() {
+        List<Customer> customerList = new ArrayList<>();
+        for (int i=0; i<10; i++){
+            Customer customer = new Customer("Alam trading", "30৳", "25/4/2019");
+            customerList.add(customer);
+        }
+        mCustomerView.setListToView(customerList);
     }
 }

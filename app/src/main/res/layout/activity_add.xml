@@ -23,6 +23,7 @@
             android:text="Sale"
             android:textAllCaps="false"
             android:textColor="#ffffff"
+            android:elevation="@dimen/_4sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,38 +47,51 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_toRightOf="@+id/btn_sale"
             android:background="@drawable/btn_background_buy"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="Buy"
             android:textAllCaps="false"
             android:textColor="#ffffff"
+            android:elevation="@dimen/_4sdp"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintEnd_toEndOf="@+id/et_customer_name"
             app:layout_constraintStart_toEndOf="@+id/btn_sale"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_item_selected_count"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="#4B4949"
+            android:textSize="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/et_customer_name"
+            app:layout_constraintBottom_toTopOf="@+id/rv_available_list" />
 
         <EditText
             android:id="@+id/et_customer_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_42sdp"
             android:layout_below="@+id/btn_sale"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
             android:background="@drawable/list_item_background"
             android:hint="Customer Name"
             android:paddingStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:textSize="@dimen/_12sdp"
             android:paddingEnd="0dp"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/btn_buy" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/relative_view"
+            android:id="@+id/rv_add_product_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_add_product"
-            android:layout_marginTop="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@+id/et_customer_name" />
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_selected_count" />
 
         <Button
             android:id="@+id/btn_add_product"
@@ -91,10 +105,11 @@
             android:paddingStart="0dp"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold"
+            android:elevation="@dimen/_4sdp"
             android:text="Add product"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@+id/relative_view" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_available_list" />
 
         <TextView
             android:id="@+id/tv_total"
@@ -219,6 +234,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="10dp"
             android:text="Done"
+            android:elevation="@dimen/_4sdp"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold"
             android:textAllCaps="false"

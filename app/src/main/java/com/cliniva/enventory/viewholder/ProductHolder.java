@@ -7,17 +7,22 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
 import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
+import com.cliniva.enventory.databinding.ItemProductBinding;
 import com.cliniva.enventory.model.Product;
-import com.cliniva.enventory.utils.ProductItemListener;
+import com.cliniva.enventory.listener.OnProductItemClickedListener;
 
-public class ProductHolder extends BaseRecyclerViewHolder<Product, ProductItemListener> {
+public class ProductHolder extends BaseRecyclerViewHolder<Product, OnProductItemClickedListener> {
+
+    private ItemProductBinding binding;
 
     public ProductHolder(@NonNull ViewDataBinding itemView) {
         super(itemView);
+        this.binding = (ItemProductBinding) itemView;
     }
 
     @Override
-    public void onBindView(Product item, int position, ProductItemListener listener) {
+    public void onBindView(Product item, int position, OnProductItemClickedListener listener) {
         enableItemViewClick(item, listener);
+        binding.setProduct(item);
     }
 }

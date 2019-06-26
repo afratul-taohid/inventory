@@ -1,4 +1,4 @@
-package com.cliniva.enventory.utils;
+package com.cliniva.enventory.listener;
 
 /* Created by Imran Khan on 20-Jun-19.
  * Copyright (c) Imran Khan All rights reserved.*/
@@ -8,6 +8,6 @@ import android.view.View;
 import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
 import com.cliniva.enventory.model.Product;
 
-public interface ProductItemListener extends BaseRecyclerClickListener<Product> {
-    void onButtonClick(View v, int position);
+public interface OnProductItemClickedListener extends BaseRecyclerClickListener<Product> {
+    void onSingleViewClicked(View v, int position);
 }

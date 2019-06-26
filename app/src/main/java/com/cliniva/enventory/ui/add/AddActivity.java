@@ -1,126 +1,122 @@
 package com.cliniva.enventory.ui.add;
 
-import android.support.v7.app.AppCompatActivity;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cliniva.enventory.R;
-import com.cliniva.enventory.adapter.AvailableProductListAdapter;
-import com.cliniva.enventory.model.AvailableProductList;
+import com.cliniva.enventory.adapter.RecyclerViewAdapter;
+import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
+import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
+import com.cliniva.enventory.app.InventoryApp;
+import com.cliniva.enventory.listener.OnProductItemClickedListener;
+import com.cliniva.enventory.model.AddProduct;
+import com.cliniva.enventory.model.Product;
+import com.cliniva.enventory.ui.base.BaseActivity;
+import com.cliniva.enventory.viewholder.AvailableProductHolder;
+import com.cliniva.enventory.widgets.ClinivaBottomSheetDialog;
 import com.cliniva.enventory.widgets.ClinivaDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends BaseActivity implements AddContract.View, View.OnClickListener, BaseRecyclerClickListener<AddProduct> {
 
     private Button addProduct;
     private Button saleProduct;
     private Button buyProduct;
     private Button addProductDone;
 
+    private RecyclerView mAddProductList;
+    private AddContract.Presenter mAddPresenter;
+    private TextView mSelectedCountView;
+
     private ImageButton addAvailableProduct;
 
-    List<AvailableProductList> list_product;
 
+    @Override
+    public int getLayoutRes() {
+        return R.layout.activity_add;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mAddPresenter = new AddPresenter(this);
 
+        addProduct = findViewById(R.id.btn_add_product);
+        saleProduct = findViewById(R.id.btn_sale);
+        buyProduct = findViewById(R.id.btn_buy);
+        addProductDone = findViewById(R.id.btn_add_product_done);
+        mAddProductList = findViewById(R.id.rv_add_product_list);
+        mSelectedCountView = findViewById(R.id.tv_item_selected_count);
 
-        addProduct = (Button)findViewById(R.id.btn_add_product);
-        saleProduct = (Button)findViewById(R.id.btn_sale);
-        buyProduct = (Button)findViewById(R.id.btn_buy);
-        addProductDone = (Button)findViewById(R.id.btn_add_product_done);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mAddProductList.setLayoutManager(layoutManager);
+        mAddPresenter.onLoadList();
 
-        addProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddProductDialog();
-            }
-        });
+        addProduct.setOnClickListener(this);
     }
 
     private void showAddProductDialog() {
-
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.available_product, null, false);
-
-        ClinivaDialog clinivaDialog = new ClinivaDialog(this, dialogView);
-
-        addAvailableProduct = dialogView.findViewById(R.id.btn_add_product_available);
-
-        addAvailableProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAvailableProduct();
-            }
-
-        });
-        RelativeLayout availableProductHeader = dialogView.findViewById(R.id.rl_available_product_list);
-
-        list_product = new ArrayList<>();
-        AvailableProductList availableProductList = new AvailableProductList("Hourse", "C/A", "300 gsm");
-        list_product.add(availableProductList);
-        list_product.add(availableProductList);
-        list_product.add(availableProductList);
-
-        RecyclerView recyclerView = dialogView.findViewById(R.id.rl_available_product);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        AvailableProductListAdapter availableProductListAdapter = new AvailableProductListAdapter(list_product, this);
-        recyclerView.setAdapter(availableProductListAdapter);
-        availableProductListAdapter.setOnAddButtonListener(new AvailableProductListAdapter.OnAddButtonListener() {
-            @Override
-            public void onButtonClick(int position) {
-                clinivaDialog.dismiss();
-            }
-        });
-
-      //  AvailableProductListAdapter availableProductListAdapter = new AvailableProductListAdapter
-
-//        RelativeLayout rlHeader = dialogView.findViewById(R.id.rl_header);
-//        RelativeLayout rlContent = dialogView.findViewById(R.id.rl_content);
-//
-//        rlHeader.setOnClickListener(v -> {
-//
-//            if (rlContent.getVisibility() == View.GONE){
-//                ViewUtils.expand(rlContent);
-//            } else {
-//                ViewUtils.collapse(rlContent);
-//            }
-//        });
-
-
-        clinivaDialog.show();
+        ClinivaBottomSheetDialog bottomSheetDialog = new ClinivaBottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.available_product);
+        bottomSheetDialog.show();
     }
 
     private void showAvailableProduct() {
 
         View productView = LayoutInflater.from(this).inflate(R.layout.dialog_add_product, null, false);
-
-        RelativeLayout addProductHeader = productView.findViewById(R.id.rl_header);
-
-        RelativeLayout addProductContent = productView.findViewById(R.id.rl_content);
-
         ClinivaDialog clinivaDialog = new ClinivaDialog(this, productView);
-
         clinivaDialog.show();
-
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_add_product:
+                showAddProductDialog();
+                break;
+        }
+    }
+
+    @Override
+    public void setListToView(List<AddProduct> productList) {
+        RecyclerViewAdapter<AddProduct, BaseRecyclerClickListener<AddProduct>> mProductAdapter = new RecyclerViewAdapter<AddProduct, BaseRecyclerClickListener<AddProduct>>(productList) {
+            @NonNull
+            @Override
+            public BaseRecyclerViewHolder<AddProduct, BaseRecyclerClickListener<AddProduct>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mAddPresenter.getContext()), R.layout.item_add_product, parent, false);
+                return new AvailableProductHolder(binding);
+            }
+        };
+        mProductAdapter.setListener(this);
+        mAddProductList.setAdapter(mProductAdapter);
+        mSelectedCountView.setText(String.format("%s item selected", productList.size()));
+    }
+
+    @Override
+    public InventoryApp getApp() {
+        return inventoryApp;
+    }
+
+    @Override
+    public void onItemClickListener(AddProduct item, int position) {
+
     }
 }

@@ -55,7 +55,7 @@ public class UnpaidFragment extends BaseFragment implements HomeContract.View, V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = view.findViewById(R.id.rv_data);
+        mRecyclerView = view.findViewById(R.id.rv_unpaid_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mMainPresenter.getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mMainPresenter.onLoad();

@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cliniva.enventory.R;
-import com.cliniva.enventory.model.AddProductList;
+import com.cliniva.enventory.model.AddProduct;
 import com.cliniva.enventory.viewholder.AddProductListViewHolder;
 
 import java.util.List;
 
 public class AddProductListAdapter extends RecyclerView.Adapter<AddProductListViewHolder> {
 
-    private List<AddProductList> list_add_product;
+    private List<AddProduct> list_add_product;
     private Context context_add_product;
 
 
-    public AddProductListAdapter(List<AddProductList> list_add_product, Context context_add_product) {
+    public AddProductListAdapter(List<AddProduct> list_add_product, Context context_add_product) {
         this.list_add_product = list_add_product;
         this.context_add_product = context_add_product;
     }

@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cliniva.enventory.viewholder.CompanyListViewHolder;
+import com.cliniva.enventory.viewholder.UnpaidHolder;
 import com.cliniva.enventory.model.Transaction;
 import com.cliniva.enventory.R;
 
 import java.util.List;
 
-public class CompanyListDataAdapter extends RecyclerView.Adapter<CompanyListViewHolder> {
+public class CompanyListDataAdapter extends RecyclerView.Adapter<UnpaidHolder> {
 
     private List<Transaction> list;
     private Context context;
@@ -26,20 +26,20 @@ public class CompanyListDataAdapter extends RecyclerView.Adapter<CompanyListView
 
     @NonNull
     @Override
-    public CompanyListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public UnpaidHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_unpaid,viewGroup,false);
-        return new CompanyListViewHolder(view);
+        return new UnpaidHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CompanyListViewHolder companyListViewHolder, int i) {
+    public void onBindViewHolder(@NonNull UnpaidHolder unpaidHolder, int i) {
 
         Transaction currentdata = list.get(i);
 
-        companyListViewHolder.name.setText(currentdata.getName());
-        companyListViewHolder.price.setText(currentdata.getPrice());
-        companyListViewHolder.date.setText(currentdata.getDate());
+        unpaidHolder.name.setText(currentdata.getName());
+        unpaidHolder.price.setText(currentdata.getPrice());
+        unpaidHolder.date.setText(currentdata.getDate());
 
     }
 

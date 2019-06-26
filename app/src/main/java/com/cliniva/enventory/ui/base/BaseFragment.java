@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cliniva.enventory.R;
 import com.cliniva.enventory.app.InventoryApp;
 
 public abstract class BaseFragment extends Fragment {
@@ -45,4 +48,13 @@ public abstract class BaseFragment extends Fragment {
         if (inventoryApp == null) setApp();
         return inventoryApp;
     };
+
+    public void setToolbar(View view, String title, boolean isElevation){
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        if (isElevation){
+            appBarLayout.setElevation(4f);
+        }
+        toolbar.setTitle(title);
+    }
 }
