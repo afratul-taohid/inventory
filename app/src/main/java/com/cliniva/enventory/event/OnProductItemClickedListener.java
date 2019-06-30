@@ -1,4 +1,4 @@
-package com.cliniva.enventory.listener;
+package com.cliniva.enventory.event;
 
 /* Created by Imran Khan on 20-Jun-19.
  * Copyright (c) Imran Khan All rights reserved.*/

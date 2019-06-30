@@ -1,4 +1,4 @@
-package com.cliniva.enventory.ui.product;
+package com.cliniva.enventory.ui.sales;
 
 
 import android.databinding.DataBindingUtil;
@@ -13,33 +13,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.databinding.library.baseAdapters.DataBinderMapperImpl;
 import com.cliniva.enventory.R;
 import com.cliniva.enventory.adapter.RecyclerViewAdapter;
-import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
 import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
-import com.cliniva.enventory.listener.OnProductItemClickedListener;
+import com.cliniva.enventory.event.OnProductItemClickedListener;
 import com.cliniva.enventory.model.Product;
 import com.cliniva.enventory.ui.base.BaseFragment;
 import com.cliniva.enventory.viewholder.ProductHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductFragment extends BaseFragment implements ProductContract.View, OnProductItemClickedListener {
+public class SalesFragment extends BaseFragment implements SalesContract.View, OnProductItemClickedListener {
 
     private RecyclerView mProductList;
-    private ProductContract.Presenter mProductPresenter;
+    private SalesContract.Presenter mProductPresenter;
 
-    public ProductFragment() {
+    public SalesFragment() {
         // Required empty public constructor
     }
 
-    public static ProductFragment getInstance(){
-        ProductFragment fragment = new ProductFragment();
+    public static SalesFragment getInstance(){
+        SalesFragment fragment = new SalesFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -47,13 +44,13 @@ public class ProductFragment extends BaseFragment implements ProductContract.Vie
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_product;
+        return R.layout.fragment_sales;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductPresenter = new ProductPresenter(this);
+        mProductPresenter = new SalesPresenter(this);
     }
 
     @Override
@@ -74,7 +71,7 @@ public class ProductFragment extends BaseFragment implements ProductContract.Vie
             @NonNull
             @Override
             public BaseRecyclerViewHolder<Product, OnProductItemClickedListener> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.item_product, parent, false);
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.item_inventory, parent, false);
                 return new ProductHolder(binding);
             }
         };

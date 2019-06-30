@@ -10,7 +10,7 @@ import com.cliniva.enventory.ui.base.BaseActivity;
 import com.cliniva.enventory.ui.customer.CustomerFragment;
 import com.cliniva.enventory.ui.home.HomeFragment;
 import com.cliniva.enventory.ui.more.MoreFragment;
-import com.cliniva.enventory.ui.product.ProductFragment;
+import com.cliniva.enventory.ui.sales.SalesFragment;
 import com.cliniva.enventory.ui.supplier.SupplierFragment;
 
 public class MainActivity extends BaseActivity {
@@ -35,13 +35,13 @@ public class MainActivity extends BaseActivity {
             case R.id.menu_home:
                 onFragmentTransaction(HomeFragment.getInstance());
                 return true;
-            case R.id.menu_product:
-                onFragmentTransaction(ProductFragment.getInstance());
+            case R.id.menu_sales:
+                onFragmentTransaction(SalesFragment.getInstance());
                 return true;
-            case R.id.menu_customer:
+            case R.id.menu_inventory:
                 onFragmentTransaction(CustomerFragment.getInstance());
                 return true;
-            case R.id.menu_suppliers:
+            case R.id.menu_supplies:
                 onFragmentTransaction(SupplierFragment.getInstance());
                 return true;
             case R.id.menu_more:

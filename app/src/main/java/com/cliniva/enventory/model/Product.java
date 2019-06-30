@@ -4,24 +4,19 @@ package com.cliniva.enventory.model;
  * Copyright (c) Imran Khan All rights reserved.*/
 
 public class Product {
-    private String name;
+
     private String category;
     private String subCategory;
-    private String amount;
+    private String unitAmount;
+    private String size;
+    private String lastSupply;
 
-    public Product(String name, String category, String subCategory, String amount) {
-        this.name = name;
+    public Product(String category, String subCategory, String unitAmount, String size, String lastSupply) {
         this.category = category;
         this.subCategory = subCategory;
-        this.amount = amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.unitAmount = unitAmount;
+        this.size = size;
+        this.lastSupply = lastSupply;
     }
 
     public String getCategory() {
@@ -40,11 +35,27 @@ public class Product {
         this.subCategory = subCategory;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getUnitAmount() {
+        return unitAmount;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setUnitAmount(String unitAmount) {
+        this.unitAmount = unitAmount;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getLastSupply() {
+        return lastSupply;
+    }
+
+    public void setLastSupply(String lastSupply) {
+        this.lastSupply = lastSupply;
     }
 }

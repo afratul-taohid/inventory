@@ -20,4 +20,7 @@
     <string name="action_more">More</string>
     <string name="hint_payable_amount">Payable amount:</string>
     <string name="hint_receivable_amount">Receivable amount:</string>
+    <string name="action_sales">Sales</string>
+    <string name="action_inventory">Inventory</string>
+    <string name="action_supplies">Supplies</string>
 </resources>

@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.cliniva.enventory.R;
 import com.cliniva.enventory.adapter.RecyclerViewAdapter;
 import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
-import com.cliniva.enventory.listener.OnSupplierItemClickedListener;
+import com.cliniva.enventory.event.OnSupplierItemClickedListener;
 import com.cliniva.enventory.model.Customer;
 import com.cliniva.enventory.ui.base.BaseFragment;
 import com.cliniva.enventory.viewholder.SupplierHolder;

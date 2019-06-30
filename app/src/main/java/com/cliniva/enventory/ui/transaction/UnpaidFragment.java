@@ -1,6 +1,8 @@
-package com.cliniva.enventory.ui.home;
+package com.cliniva.enventory.ui.transaction;
 
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,23 +11,29 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cliniva.enventory.R;
-import com.cliniva.enventory.adapter.CompanyListDataAdapter;
+import com.cliniva.enventory.adapter.RecyclerViewAdapter;
+import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
+import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
 import com.cliniva.enventory.model.Transaction;
 import com.cliniva.enventory.ui.add.AddActivity;
 import com.cliniva.enventory.ui.base.BaseFragment;
 import com.cliniva.enventory.utils.IntentUtils;
+import com.cliniva.enventory.viewholder.UnpaidHolder;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UnpaidFragment extends BaseFragment implements HomeContract.View, View.OnClickListener {
+public class UnpaidFragment extends BaseFragment implements TransactionContract.View, View.OnClickListener, BaseRecyclerClickListener<Transaction> {
 
-    private HomeContract.Presenter mMainPresenter;
+    private TransactionContract.Presenter mTransactionPresenter;
     private RecyclerView mRecyclerView;
     private static final String TAG = "UnpaidFragment";
 
@@ -43,7 +51,7 @@ public class UnpaidFragment extends BaseFragment implements HomeContract.View, V
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMainPresenter = new HomePresenter(this);
+        mTransactionPresenter = new TransactionPresenter(this);
     }
 
     @Override
@@ -56,9 +64,9 @@ public class UnpaidFragment extends BaseFragment implements HomeContract.View, V
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView = view.findViewById(R.id.rv_unpaid_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mMainPresenter.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mTransactionPresenter.getContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        mMainPresenter.onLoad();
+        mTransactionPresenter.onLoad();
         Log.d(TAG, "onViewCreated: ");
 
         FloatingActionButton fab = view.findViewById(R.id.btn_fab);
@@ -66,8 +74,21 @@ public class UnpaidFragment extends BaseFragment implements HomeContract.View, V
     }
 
     @Override
-    public void setList(List<Transaction> dataList) {
-        mRecyclerView.setAdapter(new CompanyListDataAdapter(dataList, mMainPresenter.getContext()));
+    public void setList(List<Transaction> unpaidList) {
+        RecyclerViewAdapter<Transaction, BaseRecyclerClickListener<Transaction>> unpaidAdapter = new RecyclerViewAdapter<Transaction, BaseRecyclerClickListener<Transaction>>(unpaidList) {
+            @NonNull
+            @Override
+            public BaseRecyclerViewHolder<Transaction, BaseRecyclerClickListener<Transaction>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mTransactionPresenter.getContext()), R.layout.item_unpaid, parent, false);
+                return new UnpaidHolder(binding);
+            }
+        };
+        unpaidAdapter.setListener(this);
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(mTransactionPresenter.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -78,5 +99,10 @@ public class UnpaidFragment extends BaseFragment implements HomeContract.View, V
                         .onActivityIntentWithoutExtras(getActivity(), AddActivity.class);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClickListener(Transaction item, int position) {
+
     }
 }

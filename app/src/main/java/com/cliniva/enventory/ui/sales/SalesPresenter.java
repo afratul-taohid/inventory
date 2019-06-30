@@ -1,4 +1,4 @@
-package com.cliniva.enventory.ui.product;
+package com.cliniva.enventory.ui.sales;
 
 /* Created by Imran Khan on 16-Jun-19.
  * Copyright (c) Imran Khan All rights reserved.*/
@@ -10,11 +10,11 @@ import com.cliniva.enventory.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductPresenter implements ProductContract.Presenter {
+public class SalesPresenter implements SalesContract.Presenter {
 
-    private ProductContract.View mProductView;
+    private SalesContract.View mProductView;
 
-    ProductPresenter(ProductContract.View mProductView) {
+    SalesPresenter(SalesContract.View mProductView) {
         this.mProductView = mProductView;
     }
 

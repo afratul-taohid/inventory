@@ -1,23 +1,24 @@
 package com.cliniva.enventory.viewholder;
 
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
 
-import com.cliniva.enventory.R;
+import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
+import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
+import com.cliniva.enventory.databinding.ItemUnpaidBinding;
+import com.cliniva.enventory.model.Transaction;
 
-public class UnpaidHolder extends RecyclerView.ViewHolder {
+public class UnpaidHolder extends BaseRecyclerViewHolder<Transaction, BaseRecyclerClickListener<Transaction>> {
 
-    public TextView name;
-    public TextView price;
-    public TextView date;
+    private ItemUnpaidBinding binding;
 
-    public UnpaidHolder(@NonNull View itemView) {
+    public UnpaidHolder(@NonNull ViewDataBinding itemView) {
         super(itemView);
+    }
 
-        name = itemView.findViewById(R.id.tv_company_name);
-        price = itemView.findViewById(R.id.tv_price);
-        date = itemView.findViewById(R.id.tv_date);
+    @Override
+    public void onBindView(Transaction item, int position, BaseRecyclerClickListener<Transaction> listener) {
+        enableItemViewClick(item, listener);
+        binding.setUnpaid(item);
     }
 }

@@ -1,13 +1,11 @@
-package com.cliniva.enventory.ui.home;
+package com.cliniva.enventory.ui.transaction;
 
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.cliniva.enventory.R;
 import com.cliniva.enventory.ui.base.BaseFragment;

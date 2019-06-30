@@ -7,23 +7,23 @@
         android:title="@string/action_home"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/menu_product"
+    <item android:id="@+id/menu_sales"
         android:icon="@drawable/ic_local_offer"
-        android:title="@string/action_product"
+        android:title="@string/action_sales"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/menu_customer"
-        android:icon="@drawable/ic_add_shopping_cart"
-        android:title="@string/action_customer"
-        app:showAsAction="always"/>
-
-    <item android:id="@+id/menu_suppliers"
+    <item android:id="@+id/menu_inventory"
         android:icon="@drawable/ic_store_black"
-        android:title="@string/action_suppliers"
-        app:showAsAction="always"/>
+        android:title="@string/action_inventory"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menu_supplies"
+        android:icon="@drawable/ic_add_shopping_cart"
+        android:title="@string/action_supplies"
+        app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_more"
         android:icon="@drawable/ic_more_horiz"
         android:title="@string/action_more"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>

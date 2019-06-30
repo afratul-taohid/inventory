@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
 import com.cliniva.enventory.databinding.ItemCustomerBinding;
-import com.cliniva.enventory.listener.OnCustomerItemClickedListener;
+import com.cliniva.enventory.event.OnCustomerItemClickedListener;
 import com.cliniva.enventory.model.Customer;
 
 public class CustomerHolder extends BaseRecyclerViewHolder<Customer, OnCustomerItemClickedListener> {
