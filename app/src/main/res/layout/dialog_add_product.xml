@@ -14,9 +14,8 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:text="Please enter product detail"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="@dimen/_11sdp"
         android:textColor="#FF6969"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,9 +45,8 @@
         android:layout_marginTop="@dimen/_16sdp"
         android:text="Product Category : "
         app:layout_constraintBaseline_toBaselineOf="@+id/product_category_spinner"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="@dimen/_11sdp"
         android:textColor="#505050"
-        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
@@ -76,7 +74,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:text="Size :"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="@dimen/_11sdp"
         android:textColor="#505050"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +92,7 @@
         android:layout_marginStart="@dimen/_2sdp"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="@dimen/_11sdp"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_product_size"
         app:layout_constraintStart_toEndOf="@+id/tv_product_size"
         app:layout_constraintTop_toBottomOf="@+id/product_category_spinner" />
@@ -147,7 +145,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:text="Weight :"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="@dimen/_11sdp"
         android:textColor="#505050"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -165,7 +163,7 @@
         android:layout_marginStart="@dimen/_2sdp"
         android:paddingEnd="@dimen/_8sdp"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_product_weight"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="@dimen/_11sdp"
         app:layout_constraintStart_toEndOf="@+id/tv_product_weight"
         app:layout_constraintTop_toBottomOf="@+id/et_product_first_size" />
 
@@ -177,7 +175,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:text="Retail price: "
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="@dimen/_11sdp"
         android:textColor="#505050"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -197,16 +195,17 @@
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_retail_price_hint"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="@dimen/_11sdp"
         app:layout_constraintStart_toEndOf="@+id/tv_retail_price_hint"
         app:layout_constraintTop_toBottomOf="@+id/et_product_weight" />
 
     <ImageButton
+        android:id="@+id/btn_add_product"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_margin="@dimen/_16sdp"
         android:background="@drawable/check_entry_circle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_product_weight" />
+        app:layout_constraintTop_toBottomOf="@+id/et_retail_price" />
 
 </android.support.constraint.ConstraintLayout>
