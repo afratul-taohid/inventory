@@ -79,11 +79,12 @@ public class UnpaidFragment extends BaseFragment implements TransactionContract.
             @NonNull
             @Override
             public BaseRecyclerViewHolder<Transaction, BaseRecyclerClickListener<Transaction>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mTransactionPresenter.getContext()), R.layout.item_unpaid, parent, false);
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_unpaid, parent, false);
                 return new UnpaidHolder(binding);
             }
         };
         unpaidAdapter.setListener(this);
+        mRecyclerView.setAdapter(unpaidAdapter);
     }
 
     @Override

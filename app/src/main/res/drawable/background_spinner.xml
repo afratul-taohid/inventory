@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners
+                android:radius="5dp"/>
+
+            <stroke
+                android:width="0.5dp"
+                android:color="#707070"/>
+
+            <size
+                android:width="@dimen/_66sdp"
+                android:height="@dimen/_30sdp"/>
+        </shape>
+    </item>
+
+    <item
+        android:gravity="end"
+        android:top="5dp"
+        android:bottom="5dp"
+        android:drawable="@drawable/ic_arrow_down"/>
+</layer-list>

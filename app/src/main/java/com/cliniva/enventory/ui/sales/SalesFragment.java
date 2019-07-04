@@ -56,8 +56,7 @@ public class SalesFragment extends BaseFragment implements SalesContract.View, O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setToolbar(view, mProductPresenter.getContext().getString(R.string.action_product), false);
-        mProductList = view.findViewById(R.id.rv_product_list);
+        mProductList = view.findViewById(R.id.rv_sales_list);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mProductList.setLayoutManager(layoutManager);

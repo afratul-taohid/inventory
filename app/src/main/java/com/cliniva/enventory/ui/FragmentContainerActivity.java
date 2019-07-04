@@ -6,7 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.cliniva.enventory.R;
 import com.cliniva.enventory.ui.base.BaseActivity;
+import com.cliniva.enventory.ui.customer.CustomerFragment;
+import com.cliniva.enventory.ui.main.MainActivity;
+import com.cliniva.enventory.ui.supplier.SupplierFragment;
 import com.cliniva.enventory.ui.transaction.TransactionFragment;
+import com.cliniva.enventory.utils.IntentUtils;
 
 public class FragmentContainerActivity extends BaseActivity {
 
@@ -19,7 +23,7 @@ public class FragmentContainerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int fragmentType = getIntent().getIntExtra("FRAGMENT_TYPE_EXTRA", 0);
+        int fragmentType = getIntent().getExtras().getInt("FRAGMENT_TYPE_EXTRA", 0);
         onFragmentTransaction(fragmentType);
     }
 
@@ -31,6 +35,19 @@ public class FragmentContainerActivity extends BaseActivity {
             case 0:
                 transaction.replace(R.id.fl_fragment_container, TransactionFragment.getInstance()).commit();
                 break;
+            case 1:
+                transaction.replace(R.id.fl_fragment_container, CustomerFragment.getInstance()).commit();
+                break;
+            case 2:
+                transaction.replace(R.id.fl_fragment_container, SupplierFragment.getInstance()).commit();
+                break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("TRANSACTION_KEY", 0);
+        IntentUtils.getInstance().onActivityIntentWithExtras(this, MainActivity.class, bundle);
     }
 }

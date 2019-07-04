@@ -14,6 +14,7 @@
         android:id="@+id/rv_brand_name_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar"/>
 
@@ -23,7 +24,7 @@
         android:layout_height="0dp"
         android:paddingBottom="@dimen/_60sdp"
         android:clipToPadding="false"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintTop_toBottomOf="@+id/rv_brand_name_list"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -40,7 +41,6 @@
         app:backgroundTint="@color/colorBackgroundFabButton"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="@dimen/_30sdp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

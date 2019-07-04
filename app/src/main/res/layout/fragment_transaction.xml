@@ -19,7 +19,7 @@
             android:minHeight="?actionBarSize"
             app:tabGravity="fill"
             app:tabIndicatorColor="#FF6969"
-            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorHeight="@dimen/_1sdp"
             app:tabBackground="@android:color/white"
             app:tabMode="fixed"
             app:tabTextColor="#FF6969"

@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            name="unpaid"
+            name="transaction"
             type="com.cliniva.enventory.model.Transaction" />
     </data>
 
@@ -13,22 +13,19 @@
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@drawable/list_item_background"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_12sdp">
 
         <TextView
             android:id="@+id/tv_company_name"
             android:layout_alignParentStart="true"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_13sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorCustomerText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@{unpaid.name}"/>
+            android:text="@{transaction.name}"/>
 
         <TextView
             android:id="@+id/tv_price"
@@ -36,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_company_name"
             android:layout_alignParentEnd="true"
-            android:text="@{unpaid.price}"
+            android:text="@{transaction.price}"
             android:textColor="@color/price_color"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +52,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:text="Unpaid"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_company_name" />
 
@@ -66,9 +63,9 @@
             android:layout_below="@id/tv_price"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/_2sdp"
-            android:text="@{unpaid.date}"
+            android:text="@{transaction.date}"
             android:textColor="@color/colorCustomerDateText"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="@+id/tv_price"
             app:layout_constraintTop_toBottomOf="@+id/tv_price" />
 

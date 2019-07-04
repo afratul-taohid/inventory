@@ -14,12 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_background"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:padding="@dimen/_16sdp"
-        android:elevation="@dimen/_4sdp">
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_10sdp"
+        android:elevation="2dp">
 
         <TextView
             android:id="@+id/tv_item_name"
@@ -29,7 +26,7 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:text="@{customer.name}"
             android:textColor="@color/colorTextTitle"
-            android:textSize="@dimen/_16sdp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +39,7 @@
             android:text="@string/hint_receivable_amount"
             android:layout_marginTop="@dimen/_8sdp"
             android:textColor="#383938"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
 
@@ -55,7 +52,7 @@
             android:text="@{customer.amount}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_item_amount_hint"
             android:textColor="#F76262"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintStart_toEndOf="@id/tv_item_amount_hint"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
@@ -69,14 +66,14 @@
             android:text="Last invoice"
             android:textColor="#FF6969"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_item_name"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_item_invoice_date"
             android:text="@{customer.lastInvoiceDate}"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             android:textColor="@color/colorTextSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

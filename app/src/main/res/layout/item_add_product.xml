@@ -14,10 +14,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         android:padding="@dimen/_16sdp"
-        android:background="#F8F8F8"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground">
+        android:background="#F8F8F8">
 
         <TextView
             android:id="@+id/tv_add_product_name"
@@ -26,7 +23,7 @@
             android:text="@{add.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            android:textSize="@dimen/_13sdp"/>
 
         <TextView
             android:id="@+id/tv_add_product_type"
@@ -46,17 +43,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{add.subCategory}"
-            android:textSize="@dimen/_12sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            android:textSize="@dimen/_11sdp"/>
 
         <TextView
             android:id="@+id/tv_add_product_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Integer.toString(add.unit)}"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_add_product_name"
             android:paddingTop="5dp"
@@ -70,7 +66,7 @@
             android:paddingStart="@dimen/_5sdp"
             android:paddingEnd="@dimen/_5sdp"
             android:text="x"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintTop_toTopOf="@+id/tv_add_product_unit"
             app:layout_constraintBottom_toBottomOf="@+id/tv_add_product_unit"
             app:layout_constraintStart_toEndOf="@+id/tv_add_product_unit" />
@@ -80,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Float.toString(add.unitPrice)}"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toEndOf="@+id/tv_add_product_unit_x"
             app:layout_constraintTop_toTopOf="@+id/tv_add_product_unit"
             app:layout_constraintBottom_toBottomOf="@+id/tv_add_product_unit"
@@ -94,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Float.toString(add.total)}"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_add_product_unit"
             app:layout_constraintEnd_toEndOf="parent" />
 

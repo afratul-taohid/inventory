@@ -19,8 +19,15 @@ import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
 import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
 import com.cliniva.enventory.app.InventoryApp;
 import com.cliniva.enventory.model.AddProduct;
+import com.cliniva.enventory.model.Brand;
+import com.cliniva.enventory.model.Product;
 import com.cliniva.enventory.ui.base.BaseActivity;
+import com.cliniva.enventory.ui.main.MainActivity;
+import com.cliniva.enventory.utils.IntentUtils;
+import com.cliniva.enventory.viewholder.AddProductHolder;
 import com.cliniva.enventory.viewholder.AvailableProductHolder;
+import com.cliniva.enventory.viewholder.BrandHolder;
+import com.cliniva.enventory.viewholder.ProductHolder;
 import com.cliniva.enventory.widgets.ClinivaBottomSheetDialog;
 import com.cliniva.enventory.widgets.ClinivaDialog;
 
@@ -33,7 +40,7 @@ public class AddActivity extends BaseActivity implements AddContract.View, View.
     private Button buyProduct;
     private Button addProductDone;
 
-    private RecyclerView mAddProductList;
+    private RecyclerView mAddProductView, mBrandView, mAvailableProductView;
     private AddContract.Presenter mAddPresenter;
     private TextView mSelectedCountView;
 
@@ -55,27 +62,36 @@ public class AddActivity extends BaseActivity implements AddContract.View, View.
         saleProduct = findViewById(R.id.btn_sale);
         buyProduct = findViewById(R.id.btn_buy);
         addProductDone = findViewById(R.id.btn_add_product_done);
-        mAddProductList = findViewById(R.id.rv_add_product_list);
+        mAddProductView = findViewById(R.id.rv_add_product_list);
         mSelectedCountView = findViewById(R.id.tv_item_selected_count);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mAddProductList.setLayoutManager(layoutManager);
+        mAddProductView.setLayoutManager(layoutManager);
         mAddPresenter.onLoadList();
 
         addProduct.setOnClickListener(this);
     }
 
     private void showAddProductDialog() {
+
         ClinivaBottomSheetDialog bottomSheetDialog = new ClinivaBottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.available_product);
+        bottomSheetDialog.setContentView(R.layout.dialog_available_product);
+
+        mBrandView = bottomSheetDialog.findViewById(R.id.rv_brand_name_list);
+        mAvailableProductView = bottomSheetDialog.findViewById(R.id.rv_available_product_list);
+
+        Button mBtnAddNew = bottomSheetDialog.findViewById(R.id.btn_add_new_product);
+        mBtnAddNew.setOnClickListener(this);
+
+        LinearLayoutManager mBrandLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mAvailableLayoutManager = new LinearLayoutManager(this);
+        mBrandView.setLayoutManager(mBrandLayoutManager);
+        mAvailableProductView.setLayoutManager(mAvailableLayoutManager);
+
+        mAddPresenter.onLoadAvailable();
+        mAddPresenter.onLoadBrand();
+
         bottomSheetDialog.show();
-    }
-
-    private void showAvailableProduct() {
-
-        View productView = LayoutInflater.from(this).inflate(R.layout.dialog_add_product, null, false);
-        ClinivaDialog clinivaDialog = new ClinivaDialog(this, productView);
-        clinivaDialog.show();
     }
 
     @Override
@@ -90,7 +106,21 @@ public class AddActivity extends BaseActivity implements AddContract.View, View.
             case R.id.btn_add_product:
                 showAddProductDialog();
                 break;
+            case R.id.btn_add_new_product:
+                showNewAddProductDialog();
+                break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        IntentUtils.getInstance().onActivityIntentWithoutExtras(this, MainActivity.class);
+    }
+
+    private void showNewAddProductDialog() {
+        ClinivaBottomSheetDialog bottomSheetDialog = new ClinivaBottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.dialog_add_product);
+        bottomSheetDialog.show();
     }
 
     @Override
@@ -99,13 +129,39 @@ public class AddActivity extends BaseActivity implements AddContract.View, View.
             @NonNull
             @Override
             public BaseRecyclerViewHolder<AddProduct, BaseRecyclerClickListener<AddProduct>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mAddPresenter.getContext()), R.layout.item_add_product, parent, false);
-                return new AvailableProductHolder(binding);
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_add_product, parent, false);
+                return new AddProductHolder(binding);
             }
         };
         mProductAdapter.setListener(this);
-        mAddProductList.setAdapter(mProductAdapter);
+        mAddProductView.setAdapter(mProductAdapter);
         mSelectedCountView.setText(String.format("%s item selected", productList.size()));
+    }
+
+    @Override
+    public void setAvailableList(List<Product> availableList) {
+        RecyclerViewAdapter<Product, BaseRecyclerClickListener<Product>> mAvailableAdapter = new RecyclerViewAdapter<Product, BaseRecyclerClickListener<Product>>(availableList) {
+            @NonNull
+            @Override
+            public BaseRecyclerViewHolder<Product, BaseRecyclerClickListener<Product>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_available_product, parent, false);
+                return new AvailableProductHolder(binding);
+            }
+        };
+        mAvailableProductView.setAdapter(mAvailableAdapter);
+    }
+
+    @Override
+    public void setBrandList(List<Brand> brandList) {
+        RecyclerViewAdapter<Brand, BaseRecyclerClickListener<Brand>> mBrandAdapter = new RecyclerViewAdapter<Brand, BaseRecyclerClickListener<Brand>>(brandList) {
+            @NonNull
+            @Override
+            public BaseRecyclerViewHolder<Brand, BaseRecyclerClickListener<Brand>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_brand, parent, false);
+                return new BrandHolder(binding);
+            }
+        };
+        mBrandView.setAdapter(mBrandAdapter);
     }
 
     @Override

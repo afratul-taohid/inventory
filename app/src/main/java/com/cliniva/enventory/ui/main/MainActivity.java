@@ -9,11 +9,15 @@ import com.cliniva.enventory.R;
 import com.cliniva.enventory.ui.base.BaseActivity;
 import com.cliniva.enventory.ui.customer.CustomerFragment;
 import com.cliniva.enventory.ui.home.HomeFragment;
+import com.cliniva.enventory.ui.inventory.InventoryFragment;
 import com.cliniva.enventory.ui.more.MoreFragment;
 import com.cliniva.enventory.ui.sales.SalesFragment;
 import com.cliniva.enventory.ui.supplier.SupplierFragment;
+import com.cliniva.enventory.ui.supplies.SuppliesFragment;
 
 public class MainActivity extends BaseActivity {
+
+    private BottomNavigationView mBottomNavView;
 
     @Override
     public int getLayoutRes() {
@@ -24,9 +28,25 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BottomNavigationView mBottomNavView = findViewById(R.id.bottom_navigation);
+        Bundle bundle = getIntent().getExtras();
+
+        mBottomNavView = findViewById(R.id.bottom_navigation);
         mBottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        onFragmentTransaction(HomeFragment.getInstance());
+
+        if (bundle != null){
+            onSwitchFragment(bundle.getInt("TRANSACTION_KEY"));
+        } else {
+            onFragmentTransaction(HomeFragment.getInstance());
+        }
+    }
+
+    private void onSwitchFragment(int keyCode){
+        switch (keyCode){
+            case 0:
+                onFragmentTransaction(MoreFragment.getInstance());
+                mBottomNavView.setSelectedItemId(R.id.menu_more);
+                break;
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
@@ -39,10 +59,10 @@ public class MainActivity extends BaseActivity {
                 onFragmentTransaction(SalesFragment.getInstance());
                 return true;
             case R.id.menu_inventory:
-                onFragmentTransaction(CustomerFragment.getInstance());
+                onFragmentTransaction(InventoryFragment.getInstance());
                 return true;
             case R.id.menu_supplies:
-                onFragmentTransaction(SupplierFragment.getInstance());
+                onFragmentTransaction(SuppliesFragment.getInstance());
                 return true;
             case R.id.menu_more:
                 onFragmentTransaction(MoreFragment.getInstance());

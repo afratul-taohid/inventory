@@ -29,7 +29,7 @@ public class SalesPresenter implements SalesContract.Presenter {
         List<Product> products = new ArrayList<>();
 
         for (int i=0; i<10; i++){
-            Product product = new Product("Sun", "(A/C)", "300gsm", "20 unit");
+            Product product = new Product("(A/C)", "300gsm", "20 unit", "22x18", "21/06/2019");
             products.add(product);
         }
         mProductView.setListToView(products);

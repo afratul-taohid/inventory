@@ -14,11 +14,12 @@ public class UnpaidHolder extends BaseRecyclerViewHolder<Transaction, BaseRecycl
 
     public UnpaidHolder(@NonNull ViewDataBinding itemView) {
         super(itemView);
+        binding = (ItemUnpaidBinding) itemView;
     }
 
     @Override
     public void onBindView(Transaction item, int position, BaseRecyclerClickListener<Transaction> listener) {
         enableItemViewClick(item, listener);
-        binding.setUnpaid(item);
+        binding.setTransaction(item);
     }
 }

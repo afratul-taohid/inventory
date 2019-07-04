@@ -18,7 +18,7 @@
         android:gravity="center_vertical"
         android:drawableStart="@drawable/ic_search"
         android:textColor="#515C6F"
-        android:textSize="@dimen/_15sdp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:background="@drawable/action_search_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

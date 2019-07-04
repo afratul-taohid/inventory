@@ -9,20 +9,22 @@ import android.support.annotation.NonNull;
 import com.cliniva.enventory.adapter.base.BaseRecyclerClickListener;
 import com.cliniva.enventory.adapter.base.BaseRecyclerViewHolder;
 import com.cliniva.enventory.databinding.ItemAddProductBinding;
+import com.cliniva.enventory.databinding.ItemAvailableProductBinding;
 import com.cliniva.enventory.model.AddProduct;
+import com.cliniva.enventory.model.Product;
 
-public class AvailableProductHolder extends BaseRecyclerViewHolder<AddProduct, BaseRecyclerClickListener<AddProduct>> {
+public class AvailableProductHolder extends BaseRecyclerViewHolder<Product, BaseRecyclerClickListener<Product>> {
 
-    private ItemAddProductBinding binding;
+    private ItemAvailableProductBinding binding;
 
     public AvailableProductHolder(@NonNull ViewDataBinding itemView) {
         super(itemView);
-        this.binding = (ItemAddProductBinding) itemView;
+        this.binding = (ItemAvailableProductBinding) itemView;
     }
 
     @Override
-    public void onBindView(AddProduct item, int position, BaseRecyclerClickListener<AddProduct> listener) {
+    public void onBindView(Product item, int position, BaseRecyclerClickListener<Product> listener) {
         enableItemViewClick(item, listener);
-        binding.setAdd(item);
+        binding.setProduct(item);
     }
 }

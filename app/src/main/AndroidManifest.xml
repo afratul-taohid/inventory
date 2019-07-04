@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.FragmentContainerActivity"></activity>
-        <activity android:name=".ui.add.AddActivity"></activity>
+        <activity android:name=".ui.FragmentContainerActivity"/>
+        <activity android:name=".ui.add.AddActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

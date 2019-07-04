@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cliniva.enventory.R;
 import com.cliniva.enventory.app.InventoryApp;
@@ -52,9 +53,11 @@ public abstract class BaseFragment extends Fragment {
     public void setToolbar(View view, String title, boolean isElevation){
         AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+        TextView toolbarTitleView = toolbar.findViewById(R.id.tv_action_title);
+        toolbarTitleView.setText(title);
         if (isElevation){
             appBarLayout.setElevation(4f);
         }
-        toolbar.setTitle(title);
     }
 }

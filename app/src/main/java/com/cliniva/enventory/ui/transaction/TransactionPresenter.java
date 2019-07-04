@@ -18,7 +18,7 @@ public class TransactionPresenter implements TransactionContract.Presenter {
     private TransactionContract.View mTransactionView;
     private static final String TAG = "TransactionPresenter";
 
-    public TransactionPresenter(TransactionContract.View mTransactionView) {
+    TransactionPresenter(TransactionContract.View mTransactionView) {
         this.mTransactionView = mTransactionView;
     }
 

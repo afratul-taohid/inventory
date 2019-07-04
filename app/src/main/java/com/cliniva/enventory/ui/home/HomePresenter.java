@@ -27,19 +27,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void onLoad() {
-        Log.wtf(TAG, "onLoad: ");
-        RetrofitClient.getInstance().getDataSet().enqueue(new Callback<List<Transaction>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Transaction>> call, @NonNull Response<List<Transaction>> response) {
-                mMainView.setList(response.body());
-                Log.wtf(TAG, "onResponse: ");
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<List<Transaction>> call, @NonNull Throwable t) {
-                Log.wtf(TAG, t.getMessage());
-            }
-        });
     }
 
     @Override
