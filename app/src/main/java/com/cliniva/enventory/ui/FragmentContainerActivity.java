@@ -32,13 +32,13 @@ public class FragmentContainerActivity extends BaseActivity {
         FragmentTransaction transaction = manager.beginTransaction();
 
         switch (fragmentType){
-            case 0:
+            case 1:
                 transaction.replace(R.id.fl_fragment_container, TransactionFragment.getInstance()).commit();
                 break;
-            case 1:
+            case 2:
                 transaction.replace(R.id.fl_fragment_container, CustomerFragment.getInstance()).commit();
                 break;
-            case 2:
+            case 3:
                 transaction.replace(R.id.fl_fragment_container, SupplierFragment.getInstance()).commit();
                 break;
         }

@@ -63,13 +63,13 @@ public class MoreFragment extends BaseFragment implements MoreContract.View, Vie
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_event_transaction:
-                onNavigation(0);
-                break;
-            case R.id.btn_event_customer:
                 onNavigation(1);
                 break;
-            case R.id.btn_event_supplier:
+            case R.id.btn_event_customer:
                 onNavigation(2);
+                break;
+            case R.id.btn_event_supplier:
+                onNavigation(3);
                 break;
         }
     }
