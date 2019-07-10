@@ -8,6 +8,7 @@
     <color name="colorCustomerText">#707070</color>
     <color name="colorCustomerDateText">#8E8E8E</color>
     <color name="border_color">#8E8E8E</color>
+    <color name="divider_color">#d1d1d1</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="item_color">#f86868</color>
@@ -18,4 +19,9 @@
     <color name="colorTextSubTitle">#8E8E8E</color>
 
     <color name="colorItemBackground">#E6E6E6</color>
+    <color name="light_gray">#E6E6E6</color>
+    <color name="text_orange">#F76262</color>
+    <color name="light_green">#46C259</color>
+    <color name="gray">#CFCFCF</color>
+    <color name="dark_gray">#4B4949</color>
 </resources>

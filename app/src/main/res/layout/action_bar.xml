@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/appbar"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:elevation="0dp"
-    android:background="@android:color/transparent"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    android:layout_height="@dimen/_60sdp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@android:color/white"
+    app:title=""
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@android:color/white"
-        app:title=""
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <TextView
+            android:id="@+id/tv_action_title"
+            android:textColor="#515C6F"
+            android:gravity="center_vertical"
+            android:text="Dashboard"
+            android:textSize="@dimen/_19sdp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/tv_action_title"
-                android:textColor="#515C6F"
-                android:gravity="center_vertical"
-                android:text="Dashboard"
-                android:textSize="@dimen/_19sdp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v7.widget.Toolbar>
-
-</android.support.design.widget.AppBarLayout>
+</androidx.appcompat.widget.Toolbar>

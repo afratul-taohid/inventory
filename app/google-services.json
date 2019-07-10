@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "903062104198",
+    "firebase_url": "https://inventory-a9d85.firebaseio.com",
+    "project_id": "inventory-a9d85",
+    "storage_bucket": "inventory-a9d85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903062104198:android:2bd6536dd272a3dd",
+        "android_client_info": {
+          "package_name": "com.amirsons.inventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903062104198-4kgm7ovv1p8ug1iqmfdq78i2t4a4itu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-QtPBC0L0DeplaJDaueJ-wfyGQ39ehEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903062104198-4kgm7ovv1p8ug1iqmfdq78i2t4a4itu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

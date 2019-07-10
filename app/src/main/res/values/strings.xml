@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Enventory</string>
+    <string name="app_name">Inventory</string>
     <string name="cancel">Cancel</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
 
     <string-array name="product">
         <item>C/A</item>
@@ -18,8 +18,8 @@
     <string name="action_customer">Customer</string>
     <string name="action_suppliers">Suppliers</string>
     <string name="action_more">More</string>
-    <string name="hint_payable_amount">Payable amount:</string>
-    <string name="hint_receivable_amount">Receivable amount:</string>
+    <string name="hint_payable_amount">Payable :</string>
+    <string name="hint_receivable_amount">Receivable :</string>
     <string name="action_sales">Sales</string>
     <string name="action_inventory">Inventory</string>
     <string name="action_supplies">Supplies</string>

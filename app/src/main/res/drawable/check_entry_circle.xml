@@ -6,8 +6,9 @@
             tools:ignore="NewApi">
             <item>
                 <shape android:shape="oval" >
-                    <stroke android:color="#707070"
-                        android:width="0.5dp"/>
+                    <solid android:color="@color/white"/>
+                    <!--<stroke android:color="#707070"-->
+                        <!--android:width="0.5dp"/>-->
                 </shape>
             </item>
         </ripple>

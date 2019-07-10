@@ -5,21 +5,21 @@
     <item android:id="@+id/menu_home"
         android:icon="@drawable/ic_home"
         android:title="@string/action_home"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_sales"
         android:icon="@drawable/ic_local_offer"
         android:title="@string/action_sales"
-        app:showAsAction="always"/>
-
-    <item android:id="@+id/menu_inventory"
-        android:icon="@drawable/ic_store_black"
-        android:title="@string/action_inventory"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_supplies"
         android:icon="@drawable/ic_add_shopping_cart"
         android:title="@string/action_supplies"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menu_inventory"
+        android:icon="@drawable/ic_store_black"
+        android:title="@string/action_inventory"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_more"
