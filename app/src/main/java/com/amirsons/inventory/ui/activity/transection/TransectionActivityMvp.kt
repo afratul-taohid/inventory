@@ -1,5 +1,6 @@
-package com.amirsons.inventory.ui.activity.add
+package com.amirsons.inventory.ui.activity.transection
 
+import com.amirsons.inventory.datamanager.model.ProductCart
 import com.amirsons.inventory.ui.base.BasePresenter
 import com.amirsons.inventory.ui.base.BaseView
 
@@ -8,8 +9,8 @@ import com.amirsons.inventory.ui.base.BaseView
  * Email: taohid32@gmail.com
  */
 
-internal interface TransactionActivityView : BaseView {
-
+interface TransactionActivityView : BaseView {
+    fun addProductToCartList(productCart: ProductCart)
 }
 
 internal interface TransactionActivityPresenter : BasePresenter {

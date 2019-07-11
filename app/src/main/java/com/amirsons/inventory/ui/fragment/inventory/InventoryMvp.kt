@@ -61,10 +61,12 @@ class InventoryMvp internal constructor(private val mInventoryView: InventoryVie
                         // get single product object
                         val product = productSnapshot.getValue(Product::class.java)
 
+                        // set the product name and id into model
+                        product?.brand = brand
+                        product?.productId = productSnapshot.key
+
                         // assume product not null
                         product?.let {
-                            // set the product name into model
-                            product.brand = brand
                             products.add(0, product)
                         }
                     }

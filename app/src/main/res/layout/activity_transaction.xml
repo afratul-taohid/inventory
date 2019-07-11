@@ -77,8 +77,10 @@
             android:text="1 item selected"
             android:id="@+id/tv_item_selected_count"
             android:layout_margin="@dimen/_8sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="0dp"
             android:textColor="@color/dark_gray"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/btn_add_product" />
@@ -87,10 +89,10 @@
             android:visibility="gone"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/rv_add_product_list"
+            tools:listitem="@layout/item_transaction_cart_product"
+            android:id="@+id/rv_product_cart_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_selected_count" />
 
         <TextView
@@ -99,7 +101,7 @@
             android:textSize="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="@id/btn_add_product"
             app:layout_constraintStart_toStartOf="@id/btn_add_product"
-            app:layout_constraintTop_toBottomOf="@id/rv_add_product_list"
+            app:layout_constraintTop_toBottomOf="@id/rv_product_cart_list"
             android:text="No item selected"
             android:padding="@dimen/_20sdp"
             android:layout_width="wrap_content"
@@ -219,42 +221,9 @@
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:text="৳ 1000"
                 android:textSize="@dimen/_15sdp"
-                android:textColor="@color/price_color"
+                android:textColor="@color/light_green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_payment_type_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment type"
-                android:textStyle="bold"
-                android:textSize="@dimen/_11sdp"
-                android:textColor="@color/border_color"
-                app:layout_constraintTop_toTopOf="@id/sp_payment_type"
-                app:layout_constraintBottom_toBottomOf="@id/sp_payment_type"
-                app:layout_constraintStart_toStartOf="@id/tv_total"/>
-
-            <Spinner
-                android:id="@+id/sp_payment_type"
-                app:layout_constraintTop_toBottomOf="@id/tv_total_value"
-                app:layout_constraintEnd_toEndOf="@id/tv_total_value"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:textAlignment="textStart"
-                android:paddingStart="@dimen/_5sdp"
-                android:paddingEnd="0dp"
-                android:background="@drawable/spinner_background"
-                android:entries="@array/payment"/>
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/colorItemBackground"
-                app:layout_constraintTop_toBottomOf="@+id/et_paid" />
 
             <TextView
                 android:id="@+id/tv_paid"
@@ -266,7 +235,7 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="@id/et_paid"
                 app:layout_constraintBottom_toBottomOf="@id/et_paid"
-                app:layout_constraintStart_toStartOf="@id/tv_payment_type_hint" />
+                app:layout_constraintStart_toStartOf="@id/tv_total" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -285,15 +254,22 @@
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/list_item_background"
-                android:hint="400"
                 android:gravity="end|center"
                 android:inputType="numberDecimal"
                 android:paddingStart="@dimen/_5sdp"
                 android:paddingEnd="@dimen/_5sdp"
                 android:textSize="@dimen/_11sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@id/sp_payment_type"
-                app:layout_constraintEnd_toEndOf="@id/sp_payment_type"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_total_value"
+                app:layout_constraintEnd_toEndOf="@id/tv_total_value"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/colorItemBackground"
+                app:layout_constraintTop_toBottomOf="@+id/et_paid" />
 
             <TextView
                 android:id="@+id/tv_due"
@@ -314,11 +290,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="৳200"
+                android:text="৳ 200"
                 app:layout_constraintTop_toBottomOf="@+id/view"
                 android:textSize="@dimen/_15sdp"
                 android:textColor="@color/text_orange"
                 app:layout_constraintEnd_toEndOf="@id/et_paid" />
+
+            <TextView
+                android:id="@+id/tv_payment_type_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment type"
+                android:textColor="@color/border_color"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_due"
+                app:layout_constraintTop_toTopOf="@id/sp_payment_type"
+                app:layout_constraintBottom_toBottomOf="@id/sp_payment_type"/>
+
+            <Spinner
+                android:id="@+id/sp_payment_type"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/payment"
+                android:paddingStart="@dimen/_5sdp"
+                android:paddingEnd="0dp"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="@id/tv_due_value"
+                app:layout_constraintTop_toBottomOf="@id/tv_due_value"/>
+
 
             <EditText
                 android:id="@+id/tv_customer_note"
@@ -332,9 +334,9 @@
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="0dp"
                 android:textSize="@dimen/_11sdp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_due_value"
-                app:layout_constraintEnd_toEndOf="@id/tv_due_value"
-                app:layout_constraintStart_toStartOf="@id/tv_due"
+                app:layout_constraintTop_toBottomOf="@+id/sp_payment_type"
+                app:layout_constraintEnd_toEndOf="@id/sp_payment_type"
+                app:layout_constraintStart_toStartOf="@id/tv_payment_type_hint"
                 tools:ignore="Autofill" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@
 
         <activity android:name=".ui.activity.FragmentContainerActivity"/>
 
-        <activity android:name=".ui.activity.add.TransactionActivity"
+        <activity android:name=".ui.activity.transection.TransactionActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />

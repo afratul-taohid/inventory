@@ -9,9 +9,7 @@ interface OnCustomerItemClickedListener : BaseRecyclerClickListener<Customer> {
     fun onSingleViewClicked(customer: Customer, position: Int)
 }
 
-interface OnProductItemClickedListener : BaseRecyclerClickListener<Product> {
-    fun onSingleViewClicked(product: Product, position: Int)
-}
+interface OnProductItemClickedListener : BaseRecyclerClickListener<Product>
 
 interface OnSupplierItemClickedListener : BaseRecyclerClickListener<Supplier> {
     fun onSingleViewClicked(supplier: Supplier, position: Int)

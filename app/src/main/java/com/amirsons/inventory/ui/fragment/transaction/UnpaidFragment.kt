@@ -11,7 +11,7 @@ import com.amirsons.inventory.recyclerview.base.RecyclerViewAdapter
 import com.amirsons.inventory.recyclerview.base.BaseRecyclerClickListener
 import com.amirsons.inventory.recyclerview.base.BaseRecyclerViewHolder
 import com.amirsons.inventory.datamanager.model.Transaction
-import com.amirsons.inventory.ui.activity.add.TransactionActivity
+import com.amirsons.inventory.ui.activity.transection.TransactionActivity
 import com.amirsons.inventory.ui.base.BaseFragment
 import com.amirsons.inventory.utils.IntentUtils
 import com.amirsons.inventory.recyclerview.viewholder.UnpaidHolder

@@ -20,10 +20,6 @@ import java.util.*
  */
 class SalesFragment : BaseFragment(), SalesView, OnProductItemClickedListener {
 
-    override fun onSingleViewClicked(product: Product, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun onItemClickListener(item: Product, position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

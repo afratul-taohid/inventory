@@ -7,7 +7,7 @@ import com.google.firebase.database.Exclude
  * Email: taohid32@gmail.com
  */
 
-data class Product(
+data class Product(var productId: String? = null,
         @get:Exclude var brand: String? = null,
         var category: String? = null,
         var weight: String? = null,
