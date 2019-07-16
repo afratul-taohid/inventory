@@ -40,13 +40,11 @@ class SupplierMvp internal constructor(private val mSupplierView: SupplierView) 
 
                 dataSnapshot.children.forEach {
                     val supplier = it.getValue(Supplier::class.java)
+                    supplier?.id = it.key
                     supplier?.let { supplierList.add(supplier) }
                 }
 
-                if (supplierList.isNotEmpty()) {
-
-                    mSupplierView.setSupplierToView(supplierList)
-                }
+                mSupplierView.setSupplierToView(supplierList)
             }
         })
     }

@@ -16,14 +16,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.activity.FragmentContainerActivity"/>
+        <activity android:name=".ui.activity.FragmentContainerActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.activity.transection.TransactionActivity"
+        <activity android:name=".ui.activity.transaction.TransactionActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@style/AppTheme"/>
 
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.activity.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -18,7 +18,7 @@ import java.util.*
 object MyUtils {
 
     var FORMAT_DMYT = "EEEE MMMM dd, yyyy, hh:mm a"
-    var FORMAT_DMY = "dd MMMM, yyyy"
+    var FORMAT_DMY = "MMMM dd, yyyy"
 
     val currentDate: String
         get() {

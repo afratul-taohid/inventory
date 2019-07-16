@@ -1,6 +1,8 @@
 package com.amirsons.inventory.ui.activity
 
-import  android.os.Bundle
+import android.os.Bundle
+import android.os.Handler
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.amirsons.inventory.R
 import com.amirsons.inventory.ui.base.BaseActivity
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
 
     private var activeBottomFragment: Fragment? = null
+
+    private var isQuitApplication = false
 
     override val contentLayout: Int
         get() = R.layout.activity_main
@@ -43,5 +47,18 @@ class MainActivity : BaseActivity() {
 
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         bottom_navigation.selectedItemId = R.id.menu_home
+    }
+
+    override fun onBackPressed() {
+
+        if (isQuitApplication) {
+            finish()
+        }
+
+        isQuitApplication = true
+        Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show()
+
+        // after 2 sec disable the app twice click again
+        Handler().postDelayed({ isQuitApplication = false }, 2000)
     }
 }

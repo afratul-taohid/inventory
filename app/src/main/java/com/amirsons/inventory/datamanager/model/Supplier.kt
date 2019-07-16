@@ -5,7 +5,8 @@ package com.amirsons.inventory.datamanager.model
  * Email: taohid32@gmail.com
  */
 
-data class Supplier (var name: String? = null,
+data class Supplier (var id: String? = null,
+                     var name: String? = null,
                      var payableAmount: Int = 0,
                      var mobile: String? = null,
                      var address: String? = null,

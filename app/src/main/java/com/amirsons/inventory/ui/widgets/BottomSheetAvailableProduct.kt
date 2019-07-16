@@ -4,38 +4,43 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.amirsons.inventory.R
+import com.amirsons.inventory.app.Constant
 import com.amirsons.inventory.datamanager.firebase.DatabaseManager
 import com.amirsons.inventory.datamanager.firebase.DatabaseNode
 import com.amirsons.inventory.datamanager.model.BrandProduct
 import com.amirsons.inventory.datamanager.model.Product
 import com.amirsons.inventory.datamanager.model.ProductCart
 import com.amirsons.inventory.event.OnProductItemClickedListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerClickListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerViewHolder
-import com.amirsons.inventory.recyclerview.base.RecyclerViewAdapter
-import com.amirsons.inventory.recyclerview.viewholder.BrandHolder
-import com.amirsons.inventory.recyclerview.viewholder.ProductHolder
-import com.amirsons.inventory.ui.activity.transection.TransactionActivityView
+import com.amirsons.inventory.ui.activity.transaction.TransactionActivityView
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerClickListener
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.ui.recyclerview.base.RecyclerViewAdapter
+import com.amirsons.inventory.ui.recyclerview.viewholder.BrandHolder
+import com.amirsons.inventory.ui.recyclerview.viewholder.ProductHolder
+import com.amirsons.inventory.utils.KeyboardUtils
 import com.amirsons.inventory.utils.NestedRecyclerViewTouchListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.bottomsheet_available_product.*
-import kotlinx.android.synthetic.main.content_transaction_selecte_product_cart.*
+import kotlinx.android.synthetic.main.content_transaction_selected_product_cart.*
 
 
 /**
  * Created by Taohid on 10, July, 2019
  * Email: taohid32@gmail.com
  */
-class BottomSheetAvailableProduct(context: Context, private val transactionActivityView: TransactionActivityView) : MyBottomSheetDialog(context) {
+class BottomSheetAvailableProduct(context: Context, private val transactionType: String, private val transactionActivityView: TransactionActivityView) : MyBottomSheetDialog(context) {
 
     private lateinit var mProductAdapter: RecyclerViewAdapter<Product, OnProductItemClickedListener>
     private lateinit var mBrandAdapter: RecyclerViewAdapter<BrandProduct, BaseRecyclerClickListener<BrandProduct>>
+
+    // default brand selected position
     private var defaultBrandPosition = -1
     private val brandNameList = ArrayList<String>()
     private lateinit var selectedProduct : Product
@@ -75,9 +80,13 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
             override fun afterTextChanged(s: Editable?) {
 
                 val unitText = s.toString()
+                
+                // for transaction sale, input quantity must not grater than available stock
+                if (transactionType == Constant.TRANSACTION_SELL &&
+                        unitText.isNotEmpty() && (unitText.toInt() == 0 || unitText.toInt() > selectedProduct.availableStock)){
 
-                if (unitText.isNotEmpty() && (unitText.toInt() == 0 || unitText.toInt() > selectedProduct.availableStock)){
                     et_unit.text.clear()
+                    Toast.makeText(context, "Not available in stock", Toast.LENGTH_LONG).show()
                     return
                 }
 
@@ -135,14 +144,21 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
             // create new cart product
             val productCart = ProductCart()
 
-            productCart.isUpdatePrice = cb_update_retail.isSelected
+            // for sale current retail price may be updated 
+            if (transactionType == Constant.TRANSACTION_SELL){
+                productCart.isUpdatePrice = cb_update_retail.isChecked
+            }
+            
             productCart.product = selectedProduct
             productCart.productId = selectedProduct.productId
             productCart.quantity = unit.toInt()
-            productCart.sellingPrice = parUnitPrice.toInt()
+            productCart.unitPrice = parUnitPrice.toInt()
 
             // pass the selected product cart list
             transactionActivityView.addProductToCartList(productCart)
+
+            // hide the soft keyboard
+            KeyboardUtils.hideSoftInput(et_per_unit_price)
 
             dismiss()
         }
@@ -155,7 +171,7 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
     /**
      * get products data from database
      */
-    private fun loadProductsData(){
+    private fun loadProductsData() {
 
         // add an event for add product listener
         DatabaseManager.getDatabaseRef(DatabaseNode.PRODUCT).addValueEventListener(object : ValueEventListener {
@@ -189,23 +205,21 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
                         // assume product not null
                         product?.let {
 
-                            productList.add(0, product)
+                            productList.add(0, it)
                         }
                     }
 
                     brand?.let {
 
                         // store brand name list to show suggestion on product add
-                        brandNameList.add(brand)
+                        brandNameList.add(it)
 
                         // finally add brand product with brand name
-                        brandList.add(BrandProduct(brand, productList))
+                        brandList.add(BrandProduct(it, productList))
                     }
                 }
 
-                if (brandList.isNotEmpty()) {
-                    setBrandListToView(brandList)
-                }
+                setBrandListToView(brandList)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -282,6 +296,18 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
      */
     private fun setBrandListToView(brandList: ArrayList<BrandProduct>) {
 
+        if (brandList.isEmpty()) {
+
+            tv_no_item.visibility = View.VISIBLE
+            mBrandAdapter.clear()
+            mProductAdapter.clear()
+            return
+
+        } else {
+
+            tv_no_item.visibility = View.GONE
+        }
+
         mBrandAdapter.setItems(brandList)
 
         // set default product list to first item
@@ -301,6 +327,32 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
         // clear previous unit text
         et_unit.text.clear()
 
+        // show keyboard for unit
+        KeyboardUtils.showSoftInput(et_unit)
+        
+        if (transactionType == Constant.TRANSACTION_BUY) {
+            
+            // change the header title
+            tv_header_title.text = context.getString(R.string.product_buying)
+            
+            // change the unit price to buying price
+            tv_per_price_hint.text = context.getString(R.string.buy_price)
+
+            // hide the update retail price check box
+            cb_update_retail.visibility = View.GONE
+
+        } else {
+
+            // change the header title
+            tv_header_title.text = context.getString(R.string.product_selling)
+
+            // change the unit price to buying price
+            tv_per_price_hint.text = context.getString(R.string.sell_price)
+
+            // for transaction type sell set per unit price text
+            et_per_unit_price.setText(selectedProduct.retailPrice.toString())
+        }
+
         val size = "(${selectedProduct.size})"
         val availableCount = "${selectedProduct.availableStock} unit"
 
@@ -309,9 +361,6 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
         tv_cart_item_brand_name.text = selectedProduct.brand
         tv_cart_product_weight.text = selectedProduct.weight
         tv_cart_item_available_unit.text = availableCount
-
-        // set per unit price text
-        et_per_unit_price.setText(selectedProduct.retailPrice)
 
         // finally show the product selected view
         view_switcher.showNext()
@@ -341,7 +390,7 @@ class BottomSheetAvailableProduct(context: Context, private val transactionActiv
 
             override fun onConfirm(product: Product): Boolean {
 
-                DatabaseManager.add(product, DatabaseNode.PRODUCT, product.brand!!)
+                product.brand?.let { DatabaseManager.add(product, DatabaseNode.PRODUCT, it)}
                 return true
             }
         })

@@ -24,4 +24,26 @@
     <string name="action_sales">Sales</string>
     <string name="action_inventory">Inventory</string>
     <string name="action_supplies">Supplies</string>
+    <string name="title_transaction">Transaction</string>
+    <string name="update_cart_text">Update Cart</string>
+    <string name="hint_no_product_found">No Product found</string>
+    <string name="change">Change</string>
+    <string name="due">Due</string>
+    <string name="buy_price">Unit Buy Price</string>
+    <string name="sell_price">Unit Sell Price</string>
+    <string name="product_buying">Buy Product</string>
+    <string name="product_selling">Sell Product</string>
+    <string name="paid">Paid</string>
+    <string name="unpaid">Unpaid</string>
+    <string name="title_sales_toolbar">Sales History</string>
+    <string name="title_supplies_toolbar">Supplies History</string>
+    <string name="hint_enter_your_number">Enter Your Mobile Number</string>
+    <string name="login">Login</string>
+    <string name="login_verification_label">Enter he verification code sent to you</string>
+    <string name="get_code">Get Verification Code</string>
+    <string name="invalid_phone_number">Invalid mobile number</string>
+    <string name="code_sent">Verification Code Sent</string>
+    <string name="mobile_number_required">Mobile number required</string>
+    <string name="invalid_code">Verification code invalid</string>
+    <string name="verification_code_required">Verificaition code required</string>
 </resources>

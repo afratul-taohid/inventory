@@ -2,13 +2,12 @@ package com.amirsons.inventory.ui.widgets
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import com.amirsons.inventory.R
 import com.amirsons.inventory.datamanager.model.Product
+import com.amirsons.inventory.utils.KeyboardUtils
 import com.amirsons.inventory.utils.MyUtils
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottomsheet_add_product.*
-import android.widget.ArrayAdapter
-
 
 
 /**
@@ -35,8 +34,8 @@ class BottomSheetAddProduct(context: Context, private val brandNameList: ArrayLi
 
                 product.brand = ac_brand_name.text.toString()
                 product.size = "${et_product_first_size.text} x ${et_product_last_size.text}"
-                product.weight = "${et_product_weight.text} gsm"
-                product.retailPrice = et_retail_price.text.toString()
+                product.weight = if (et_product_weight.text.isNotEmpty()) "${et_product_weight.text} gsm" else ""
+                product.retailPrice = if (et_retail_price.text.toString().isNotEmpty()) et_retail_price.text.toString().toInt() else 0
                 product.category = product_category_spinner.selectedItem as String
                 product.lastSupply = MyUtils.currentDateFormatted
 
@@ -44,7 +43,11 @@ class BottomSheetAddProduct(context: Context, private val brandNameList: ArrayLi
                     product.availableStock =  et_stock_quantity.text.toString().toInt()
                 }
 
-                if (listener?.onConfirm(product) == true){
+                if (listener?.onConfirm(product) == true) {
+
+                    // hide the soft keyboard
+                    KeyboardUtils.hideSoftInput(ac_brand_name)
+
                     dismiss()
                 }
             }

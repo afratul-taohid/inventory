@@ -30,6 +30,7 @@ class BottomSheetAddCustomer(context: Context, private val title: String? = null
                 customer.address = et_address.text.toString()
 
                 if (listener?.onConfirm(customer) == true){
+
                     dismiss()
                 }
             }
@@ -43,6 +44,11 @@ class BottomSheetAddCustomer(context: Context, private val title: String? = null
         if (et_customer_name.text.toString().isEmpty()){
             isValidate = false
             et_customer_name.error = "Required !!"
+        }
+
+        if (et_mobile.text.toString().isEmpty()){
+            isValidate = false
+            et_mobile.error = "Required !!"
         }
 
         return isValidate

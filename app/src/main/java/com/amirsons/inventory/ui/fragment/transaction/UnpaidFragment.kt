@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amirsons.inventory.R
-import com.amirsons.inventory.recyclerview.base.RecyclerViewAdapter
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerClickListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.ui.recyclerview.base.RecyclerViewAdapter
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerClickListener
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
 import com.amirsons.inventory.datamanager.model.Transaction
-import com.amirsons.inventory.ui.activity.transection.TransactionActivity
+import com.amirsons.inventory.ui.activity.transaction.TransactionActivity
 import com.amirsons.inventory.ui.base.BaseFragment
 import com.amirsons.inventory.utils.IntentUtils
-import com.amirsons.inventory.recyclerview.viewholder.UnpaidHolder
+import com.amirsons.inventory.ui.recyclerview.viewholder.UnpaidHolder
 import kotlinx.android.synthetic.main.fragment_unpaid.*
 import java.util.*
 
@@ -58,7 +58,7 @@ class UnpaidFragment : BaseFragment(), UnpaidView, View.OnClickListener {
 
         val unpaidAdapter = object : RecyclerViewAdapter<Transaction, BaseRecyclerClickListener<Transaction>>(dataList) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder<Transaction, BaseRecyclerClickListener<Transaction>> {
-                return UnpaidHolder(inflate(R.layout.item_unpaid, parent))
+                return UnpaidHolder(inflate(R.layout.item_transaction_history, parent))
             }
         }
 

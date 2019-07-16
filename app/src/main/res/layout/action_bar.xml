@@ -4,26 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_60sdp"
+    android:layout_height="?attr/actionBarSize"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
     android:background="@android:color/white"
     app:title=""
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_action_title"
+        android:textColor="#515C6F"
+        android:text="Dashboard"
+        android:textSize="@dimen/_16sdp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/tv_action_title"
-            android:textColor="#515C6F"
-            android:gravity="center_vertical"
-            android:text="Dashboard"
-            android:textSize="@dimen/_19sdp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent" />
 
 </androidx.appcompat.widget.Toolbar>

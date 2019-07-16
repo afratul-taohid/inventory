@@ -1,32 +1,93 @@
 package com.amirsons.inventory.ui.fragment.sales
 
-/* Created by Imran Khan on 16-Jun-19.
- * Copyright (c) Imran Khan All rights reserved.*/
+/**
+ * Created by Taohid on 07, July, 2019
+ * Email: taohid32@gmail.com
+ */
 
-import com.amirsons.inventory.datamanager.model.Product
+import com.amirsons.inventory.app.Constant
+import com.amirsons.inventory.datamanager.firebase.DatabaseManager
+import com.amirsons.inventory.datamanager.firebase.DatabaseNode
+import com.amirsons.inventory.datamanager.model.Customer
+import com.amirsons.inventory.datamanager.model.Transaction
+import com.amirsons.inventory.datamanager.model.TransactionHistory
 import com.amirsons.inventory.ui.base.BasePresenter
 import com.amirsons.inventory.ui.base.BaseView
-import java.util.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 internal interface SalesView : BaseView {
-    fun setListToView(productList: ArrayList<Product>)
+    fun setListToView(transactionHistoryList: ArrayList<TransactionHistory>)
 }
 
 internal interface SalesPresenter : BasePresenter {
     fun onLoadList()
+    fun onRemoveDatabaseListener()
 }
 
-class SalesMvp internal constructor(private val mProductView: SalesView) : SalesPresenter {
+class SalesMvp internal constructor(private val mSalesView: SalesView) : SalesPresenter {
+
+    private val salesListLoadListener = object : ValueEventListener {
+
+        override fun onCancelled(p0: DatabaseError) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+            // create empty list for transaction history
+            val transactionHistoryList = ArrayList<TransactionHistory>()
+
+            // if snapshot has children
+            if (dataSnapshot.hasChildren()) {
+
+                dataSnapshot.children.forEachIndexed { index, it ->
+
+                    // get the transaction
+                    val transaction = it.getValue(Transaction::class.java)
+
+                    // get customer details for this transaction
+                    DatabaseManager.getDatabaseRef(DatabaseNode.CUSTOMER, transaction?.customerOrSupplierId!!).addListenerForSingleValueEvent(object : ValueEventListener {
+
+                        override fun onCancelled(p0: DatabaseError) {}
+
+                        override fun onDataChange(p0: DataSnapshot) {
+
+                            // get the customer object
+                            val customer = p0.getValue(Customer::class.java)
+
+                            // create history model after found customer details
+                            val transactionHistory = TransactionHistory()
+                            transactionHistory.date = transaction.date
+                            transactionHistory.totalPrice = transaction.totalPrice
+                            transactionHistory.isPaid = transaction.due == 0
+                            transactionHistory.id = it.key
+                            transactionHistory.customerName = customer?.name
+
+                            // add the history to list
+                            transactionHistoryList.add(transactionHistory)
+
+                            // after get all items pass history list to view presenter
+                            if (index == dataSnapshot.childrenCount.toInt() - 1)
+                                mSalesView.setListToView(transactionHistoryList)
+                        }
+                    })
+                }
+
+            } else {
+
+                mSalesView.setListToView(transactionHistoryList)
+            }
+        }
+    }
 
     override fun onLoadList() {
 
-        val products = ArrayList<Product>()
+        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION).orderByChild(DatabaseNode.TRANSACTION_TYPE).equalTo(Constant.TRANSACTION_SELL)
+                .addValueEventListener(salesListLoadListener)
+    }
 
-        for (i in 0..9) {
-            val product = Product("(A/C)", "300gsm", "20 availableStock", "22x18", "21/06/2019")
-            products.add(product)
-        }
-
-        mProductView.setListToView(products)
+    override fun onRemoveDatabaseListener() {
+        // remove this listener from context after activity / fragment detach
+        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION).removeEventListener(salesListLoadListener)
     }
 }

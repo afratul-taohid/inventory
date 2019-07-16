@@ -4,7 +4,7 @@ package com.amirsons.inventory.ui.fragment.transaction
 import android.os.Bundle
 import android.view.View
 import com.amirsons.inventory.R
-import com.amirsons.inventory.recyclerview.adapter.TabsAdapter
+import com.amirsons.inventory.ui.recyclerview.adapter.TabsAdapter
 import com.amirsons.inventory.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_transaction.*
 

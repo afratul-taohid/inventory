@@ -73,7 +73,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/content_transaction_selecte_product_cart"
+    <include layout="@layout/content_transaction_selected_product_cart"
         android:layout_gravity="bottom"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>

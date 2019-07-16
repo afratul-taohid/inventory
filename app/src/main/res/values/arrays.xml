@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="payment">
+    <string-array name="payment_type">
         <item>Cash</item>
+        <item>Bank</item>
     </string-array>
 </resources>

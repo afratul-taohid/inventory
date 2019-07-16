@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.amirsons.inventory.R
 import com.amirsons.inventory.datamanager.model.Customer
 import com.amirsons.inventory.event.OnCustomerItemClickedListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerViewHolder
-import com.amirsons.inventory.recyclerview.base.RecyclerViewAdapter
-import com.amirsons.inventory.recyclerview.viewholder.CustomerHolder
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.ui.recyclerview.base.RecyclerViewAdapter
+import com.amirsons.inventory.ui.recyclerview.viewholder.CustomerHolder
 import com.amirsons.inventory.ui.base.BaseFragment
 import com.amirsons.inventory.ui.widgets.BottomSheetAddCustomer
 import com.amirsons.inventory.ui.widgets.OnAddCustomerConfirm

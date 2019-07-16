@@ -64,7 +64,7 @@
         android:background="@drawable/border_background"
         android:paddingStart="@dimen/_5sdp"
         android:paddingEnd="@dimen/_5sdp"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_mobile"

@@ -8,9 +8,9 @@ import com.amirsons.inventory.R
 import com.amirsons.inventory.datamanager.model.Customer
 import com.amirsons.inventory.datamanager.model.Supplier
 import com.amirsons.inventory.event.OnSupplierItemClickedListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerViewHolder
-import com.amirsons.inventory.recyclerview.base.RecyclerViewAdapter
-import com.amirsons.inventory.recyclerview.viewholder.SupplierHolder
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.ui.recyclerview.base.RecyclerViewAdapter
+import com.amirsons.inventory.ui.recyclerview.viewholder.SupplierHolder
 import com.amirsons.inventory.ui.base.BaseFragment
 import com.amirsons.inventory.ui.widgets.BottomSheetAddCustomer
 import com.amirsons.inventory.ui.widgets.OnAddCustomerConfirm

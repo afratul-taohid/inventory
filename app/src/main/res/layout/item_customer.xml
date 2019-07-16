@@ -7,7 +7,7 @@
     android:layout_marginEnd="@dimen/_12sdp"
     android:layout_marginTop="@dimen/_8sdp"
     android:layout_marginBottom="@dimen/_8sdp"
-    android:padding="@dimen/_8sdp"
+    android:padding="@dimen/_5sdp"
     android:elevation="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -20,6 +20,16 @@
         android:textSize="@dimen/_15sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_mobile_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01673260344 "
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_customer_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_customer_name"/>
 
     <TextView
         android:id="@+id/tv_item_amount_hint"
@@ -60,21 +70,23 @@
         android:id="@+id/tv_item_invoice_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last invoice"
-        android:textSize="@dimen/_11sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_customer_name"
-        app:layout_constraintBottom_toBottomOf="@id/tv_customer_name"/>
+        android:text="Last invoice:"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintHorizontal_bias=".9"
+        app:layout_constraintStart_toEndOf="@+id/tv_price_hint"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_invoice_date"
+        app:layout_constraintTop_toTopOf="@id/tv_item_invoice_date"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_invoice_date"/>
 
     <TextView
         android:text="Yesterday"
         android:id="@+id/tv_item_invoice_date"
-        android:textSize="@dimen/_11sdp"
+        android:textSize="@dimen/_10sdp"
         android:textColor="@color/text_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/tv_item_amount_hint"
         app:layout_constraintBottom_toBottomOf="@id/tv_item_amount_hint"
-        app:layout_constraintEnd_toEndOf="@id/tv_item_invoice_hint" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

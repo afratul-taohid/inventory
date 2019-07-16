@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.amirsons.inventory.R
 import com.amirsons.inventory.datamanager.model.Transaction
-import com.amirsons.inventory.ui.activity.transection.TransactionActivity
+import com.amirsons.inventory.ui.activity.transaction.TransactionActivity
 import com.amirsons.inventory.ui.base.BaseFragment
 import com.amirsons.inventory.utils.IntentUtils
 import com.amirsons.inventory.utils.stringspan.SpanSection

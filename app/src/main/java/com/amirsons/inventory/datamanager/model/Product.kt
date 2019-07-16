@@ -12,7 +12,7 @@ data class Product(var productId: String? = null,
         var category: String? = null,
         var weight: String? = null,
         var size: String? = null,
-        var retailPrice: String? = null,
+        var retailPrice: Int? = 0,
         var availableStock: Int = 0,
         var lastSupply: String? = null)
 

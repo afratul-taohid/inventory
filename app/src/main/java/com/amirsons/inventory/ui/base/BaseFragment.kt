@@ -10,17 +10,13 @@ import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.amirsons.inventory.R
 import com.amirsons.inventory.event.OnActivityResultListener
-import com.amirsons.inventory.utils.MyUtils
 import com.amirsons.inventory.ui.widgets.MySnackBar
-import com.google.android.material.appbar.AppBarLayout
+import com.amirsons.inventory.utils.MyUtils
 import kotlinx.android.synthetic.main.action_bar.view.*
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -116,6 +112,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
 
         val resultListener = activityResultListenerSparseArray.get(requestCode)
@@ -135,7 +132,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun setToolbar(view: View, title: String, isElevation: Boolean) {
-
         view.toolbar.tv_action_title.text = title
+        if (isElevation) view.toolbar.elevation = 10f
     }
 }

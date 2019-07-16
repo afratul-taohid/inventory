@@ -44,13 +44,13 @@ class CustomerMvp internal constructor(private val mCustomerView: CustomerView) 
 
                 dataSnapshot.children.forEach {
                     val customer = it.getValue(Customer::class.java)
-                    customer?.let { customerList.add(customer) }
+                    customer?.id = it.key
+                    customer?.let {
+                        customerList.add(customer)
+                    }
                 }
 
-                if (customerList.isNotEmpty()) {
-
-                    mCustomerView.setCustomerListToView(customerList)
-                }
+                mCustomerView.setCustomerListToView(customerList)
             }
         })
     }

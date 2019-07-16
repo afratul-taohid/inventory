@@ -8,12 +8,12 @@ import com.amirsons.inventory.R
 import com.amirsons.inventory.datamanager.model.BrandProduct
 import com.amirsons.inventory.datamanager.model.Product
 import com.amirsons.inventory.event.OnProductItemClickedListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerClickListener
-import com.amirsons.inventory.recyclerview.base.BaseRecyclerViewHolder
-import com.amirsons.inventory.recyclerview.base.RecyclerViewAdapter
-import com.amirsons.inventory.recyclerview.viewholder.BrandHolder
-import com.amirsons.inventory.recyclerview.viewholder.ProductHolder
 import com.amirsons.inventory.ui.base.BaseFragment
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerClickListener
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.ui.recyclerview.base.RecyclerViewAdapter
+import com.amirsons.inventory.ui.recyclerview.viewholder.BrandHolder
+import com.amirsons.inventory.ui.recyclerview.viewholder.ProductHolder
 import com.amirsons.inventory.ui.widgets.BottomSheetAddProduct
 import com.amirsons.inventory.ui.widgets.OnAddProductConfirm
 import kotlinx.android.synthetic.main.fragment_inventory.*
@@ -52,7 +52,7 @@ class InventoryFragment : BaseFragment(), InventoryView {
         super.onViewCreated(view, savedInstanceState)
 
         // set toolbar name
-        setToolbar(view, mInventoryPresenter.context.getString(R.string.action_inventory), false)
+        setToolbar(view, context.getString(R.string.action_inventory), false)
 
         // init recycler view
         initBrandRecyclerView()
@@ -110,6 +110,16 @@ class InventoryFragment : BaseFragment(), InventoryView {
 
     override fun setBrandListToView(brandList: ArrayList<BrandProduct>) {
 
+        if (brandList.isEmpty()) {
+
+            tv_no_item.visibility = ViewGroup.VISIBLE
+            mBrandAdapter.clear()
+            mProductAdapter.clear()
+            return
+        } else {
+            tv_no_item.visibility = ViewGroup.GONE
+        }
+
         mBrandAdapter.setItems(brandList)
 
         // set default product list to first item
@@ -136,5 +146,10 @@ class InventoryFragment : BaseFragment(), InventoryView {
 
         // show the bottom sheet dialog
         addProductBottomSheet.show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mInventoryPresenter.onRemoveDatabaseListener()
     }
 }
