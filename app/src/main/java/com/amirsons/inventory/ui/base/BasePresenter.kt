@@ -7,6 +7,9 @@ import android.content.Context
 import com.amirsons.inventory.app.InventoryApp
 
 interface BasePresenter {
+
     val context: Context
         get() = InventoryApp.instance.applicationContext
+
+    fun onRemoveDatabaseListener()
 }

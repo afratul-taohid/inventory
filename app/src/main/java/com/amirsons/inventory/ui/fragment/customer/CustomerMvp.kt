@@ -25,6 +25,27 @@ internal interface CustomerPresenter : BasePresenter {
 
 class CustomerMvp internal constructor(private val mCustomerView: CustomerView) : CustomerPresenter {
 
+    private val customerLoadListener = object : ValueEventListener{
+
+        override fun onCancelled(p0: DatabaseError) {
+        }
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+            val customerList = ArrayList<Customer>()
+
+            dataSnapshot.children.forEach {
+                val customer = it.getValue(Customer::class.java)
+                customer?.id = it.key
+                customer?.let {
+                    customerList.add(customer)
+                }
+            }
+
+            mCustomerView.setCustomerListToView(customerList)
+        }
+    }
+
     override fun onAddCustomerClick(customer: Customer) {
 
         // add new customer into database
@@ -32,26 +53,10 @@ class CustomerMvp internal constructor(private val mCustomerView: CustomerView) 
     }
 
     override fun onLoadCustomerList() {
+        DatabaseManager.getDatabaseRef(DatabaseNode.CUSTOMER).addValueEventListener(customerLoadListener)
+    }
 
-        DatabaseManager.getDatabaseRef(DatabaseNode.CUSTOMER).addValueEventListener(object : ValueEventListener{
-
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                val customerList = ArrayList<Customer>()
-
-                dataSnapshot.children.forEach {
-                    val customer = it.getValue(Customer::class.java)
-                    customer?.id = it.key
-                    customer?.let {
-                        customerList.add(customer)
-                    }
-                }
-
-                mCustomerView.setCustomerListToView(customerList)
-            }
-        })
+    override fun onRemoveDatabaseListener() {
+        DatabaseManager.getDatabaseRef(DatabaseNode.CUSTOMER).removeEventListener(customerLoadListener)
     }
 }

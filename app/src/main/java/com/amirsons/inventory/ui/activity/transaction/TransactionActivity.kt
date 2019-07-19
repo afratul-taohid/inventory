@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import com.amirsons.inventory.R
 import com.amirsons.inventory.app.Constant
@@ -194,26 +195,76 @@ class TransactionActivity : BaseActivity(), TransactionActivityView {
             showAvailableProductDialog()
         }
 
+        // payment type spinner on change listener
+        spinner_payment_type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                when(position) {
+
+                    0 -> {
+                        transaction.paymentType = Constant.TRANSACTION_PAYMENT_CASH
+                        tv_ac_no_hint.visibility = View.GONE
+                        et_ac_no.visibility = View.GONE
+                    }
+
+                    1 -> {
+                        transaction.paymentType = Constant.TRANSACTION_PAYMENT_BANK
+                        tv_ac_no_hint.text = getString(R.string.ac_number)
+                        tv_ac_no_hint.visibility = View.VISIBLE
+                        et_ac_no.visibility = View.VISIBLE
+                    }
+
+                    2 -> {
+                        transaction.paymentType = Constant.TRANSACTION_PAYMENT_CHEQUE
+                        tv_ac_no_hint.text = getString(R.string.cheque_number)
+                        tv_ac_no_hint.visibility = View.VISIBLE
+                        et_ac_no.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+
         // btn done click listener
         btn_done_transaction.setOnClickListener {
 
-            if (transaction.customerOrSupplierId == null){
+            if (transaction.customerOrSupplierId == null) {
                 ac_tv_customer_name.error = "Required"
                 val message = if(transaction.transactionType == Constant.TRANSACTION_SELL) "No Customer Selected !!" else "No Supplier Selected !!"
                 MySnackBar.instance.setMessage(message).setTextColor(Color.RED).show(this)
                 return@setOnClickListener
             }
 
-            if (transaction.products.isEmpty()){
+            if (transaction.products.isEmpty()) {
                 MySnackBar.instance.setMessage("No Products Selected !!").setTextColor(Color.RED).show(this)
                 return@setOnClickListener
             }
 
+            if (transaction.paymentType != Constant.TRANSACTION_PAYMENT_CASH) {
+
+                if (et_ac_no.text.toString().isEmpty()) {
+
+                    val message = if (transaction.paymentType == Constant.TRANSACTION_PAYMENT_BANK) {
+                        "Bank account number required"
+                    } else {
+                        "Cheque number required"
+                    }
+
+                    MySnackBar.instance.setMessage(message).setTextColor(Color.RED).show(this)
+                    return@setOnClickListener
+                }
+
+                // set cheque or ac number to model
+                transaction.chequeOrAcNo = et_ac_no.text.toString()
+            }
+
             // set extra cost details
             transaction.extraCost.title = et_other_cost_name.text.toString()
-
-            // set payment type
-            transaction.paymentType = spinner_payment_type.selectedItemPosition
 
             // set current date to transaction
             transaction.date = MyUtils.currentDateFormatted

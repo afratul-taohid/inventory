@@ -17,7 +17,6 @@ internal interface InventoryView : BaseView {
 
 internal interface InventoryPresenter : BasePresenter {
     fun onLoadProductList()
-    fun onRemoveDatabaseListener()
     fun onAddProduct(product: Product)
     fun onAddProductClick()
 }
@@ -94,7 +93,6 @@ class InventoryMvp internal constructor(private val mInventoryView: InventoryVie
     }
 
     override fun onRemoveDatabaseListener() {
-
         // remove this listener from context after activity / fragment detach
         DatabaseManager.getDatabaseRef(DatabaseNode.PRODUCT).removeEventListener(productLoadListener)
     }

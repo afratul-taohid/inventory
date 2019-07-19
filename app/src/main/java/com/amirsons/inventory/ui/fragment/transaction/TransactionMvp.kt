@@ -20,6 +20,9 @@ internal interface TransactionPresenter : BasePresenter {
 
 class TransactionMvp internal constructor(private val mTransactionView: TransactionView) : TransactionPresenter {
 
+    override fun onRemoveDatabaseListener() {
+    }
+
     override fun onLoad() {
 
         RetrofitClient.instance.dataSet.enqueue(object : Callback<ArrayList<Transaction>> {

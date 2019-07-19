@@ -23,4 +23,5 @@
     <color name="light_green">#46C259</color>
     <color name="gray">#CFCFCF</color>
     <color name="dark_gray">#4B4949</color>
+    <color name="total_sale_color">#3CD064</color>
 </resources>

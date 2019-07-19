@@ -24,7 +24,6 @@ internal interface SuppliesView : BaseView {
 
 internal interface SuppliesPresenter : BasePresenter {
     fun onLoadList()
-    fun onRemoveDatabaseListener()
 }
 
 class SuppliesMvp internal constructor(private val mSuppliesView: SuppliesView) : SuppliesPresenter {

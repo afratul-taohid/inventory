@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:id="@+id/et_other_cost_name"
@@ -165,60 +165,6 @@
                 app:layout_constraintTop_toTopOf="@+id/et_other_cost_name"
                 app:layout_constraintBottom_toBottomOf="@+id/et_other_cost_name"/>
 
-
-            <!--<TextView-->
-            <!--android:id="@+id/tv_truck_rent_hint"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="Truck rent"-->
-            <!--android:layout_margin="@dimen/_8sdp"-->
-            <!--android:textSize="@dimen/_11sdp"-->
-            <!--android:textColor="@color/border_color"-->
-            <!--android:textStyle="bold"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/v_truck_rent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/tv_other_cost"-->
-            <!--app:layout_constraintStart_toStartOf="@id/tv_other_cost" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/tv_tk_symbol"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="@dimen/_8sdp"-->
-            <!--android:layout_marginBottom="@dimen/_8sdp"-->
-            <!--android:text="৳"-->
-            <!--android:layout_marginEnd="@dimen/_8sdp"-->
-            <!--android:layout_marginTop="@dimen/_8sdp"-->
-            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-            <!--android:textColor="@color/border_color"-->
-            <!--app:layout_constraintBaseline_toBaselineOf="@+id/et_truck_rent_amount"-->
-            <!--app:layout_constraintHorizontal_bias="1"-->
-            <!--app:layout_constraintEnd_toStartOf="@+id/et_truck_rent_amount"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/v_truck_rent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/tv_other_cost"-->
-            <!--app:layout_constraintStart_toEndOf="@id/tv_truck_rent_hint" />-->
-
-            <!--<EditText-->
-            <!--android:id="@+id/et_truck_rent_amount"-->
-            <!--android:layout_width="@dimen/_66sdp"-->
-            <!--android:layout_height="@dimen/_30sdp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginTop="@dimen/_8sdp"-->
-            <!--android:layout_marginBottom="@dimen/_8sdp"-->
-            <!--android:background="@drawable/list_item_background"-->
-            <!--android:hint="400"-->
-            <!--android:gravity="end|center"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/v_truck_rent"-->
-            <!--android:inputType="numberDecimal"-->
-            <!--android:paddingStart="5dp"-->
-            <!--android:paddingEnd="5dp"-->
-            <!--android:textSize="@dimen/_11sdp"-->
-            <!--android:textColor="#000000"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/tv_other_cost"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"/>-->
-            <!---->
-            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
             <View
                 android:id="@+id/v_truck_rent"
                 android:layout_width="match_parent"
@@ -230,6 +176,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/payment_section"
                 android:layout_width="0dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/v_truck_rent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -346,20 +293,43 @@
 
                 <Spinner
                     android:id="@+id/spinner_payment_type"
-                    android:layout_width="@dimen/_60sdp"
+                    android:layout_width="@dimen/_75sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/spinner_background"
                     android:entries="@array/payment_type"
-                    android:paddingStart="@dimen/_5sdp"
-                    android:paddingEnd="0dp"
                     android:textAlignment="textStart"
                     app:layout_constraintEnd_toEndOf="@id/tv_due_value"
                     app:layout_constraintTop_toBottomOf="@id/tv_due_value"/>
 
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_ac_no_hint"
+                    android:textColor="@color/border_color"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintTop_toTopOf="@id/et_ac_no"
+                    app:layout_constraintStart_toStartOf="@id/tv_payment_type_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/et_ac_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <EditText
-                    android:id="@+id/tv_customer_note"
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:id="@+id/et_ac_no"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_payment_type"
+                    app:layout_constraintEnd_toEndOf="@id/spinner_payment_type"
+                    app:layout_constraintStart_toEndOf="@id/tv_ac_no_hint"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/list_item_background"/>
+
+                <EditText
+                    android:id="@+id/et_customer_note"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_35sdp"
                     android:background="@drawable/list_item_background"
@@ -370,7 +340,7 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="0dp"
                     android:textSize="@dimen/_11sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_payment_type"
+                    app:layout_constraintTop_toBottomOf="@+id/et_ac_no"
                     app:layout_constraintEnd_toEndOf="@id/spinner_payment_type"
                     app:layout_constraintStart_toStartOf="@id/tv_payment_type_hint"
                     tools:ignore="Autofill" />
@@ -392,7 +362,7 @@
                     android:textColor="#ffffff"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_customer_note"
+                    app:layout_constraintTop_toBottomOf="@+id/et_customer_note"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
 

@@ -89,4 +89,9 @@ class CustomerFragment : BaseFragment(), CustomerView {
     override fun setCustomerListToView(customerList: ArrayList<Customer>) {
         mCustomerAdapter.setItems(customerList)
     }
+
+    override fun onPause() {
+        super.onPause()
+        mCustomerPresenter.onRemoveDatabaseListener()
+    }
 }

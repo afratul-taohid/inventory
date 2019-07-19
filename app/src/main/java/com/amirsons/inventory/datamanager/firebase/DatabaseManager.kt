@@ -1,5 +1,6 @@
 package com.amirsons.inventory.datamanager.firebase
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -16,8 +17,11 @@ object DatabaseManager {
      * initialize the firebase database
      */
     init {
+
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+
         FirebaseDatabase.getInstance().setPersistenceEnabled(true)
-        rootDatabaseRef = FirebaseDatabase.getInstance().reference
+        rootDatabaseRef = FirebaseDatabase.getInstance().reference.child(uid!!)
         rootDatabaseRef.keepSynced(true)
     }
 
@@ -85,4 +89,5 @@ object DatabaseNode{
     const val SUPPLIER_PAYABLE_AMOUNT = "payableAmount"
     const val TRANSACTION = "transactions"
     const val TRANSACTION_TYPE = "transactionType"
+    const val TRANSACTION_DATE = "date"
 }

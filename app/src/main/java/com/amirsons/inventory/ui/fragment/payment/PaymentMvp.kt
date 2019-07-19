@@ -6,4 +6,7 @@ import com.amirsons.inventory.ui.base.BaseView
 internal interface PaymentView : BaseView
 internal interface PaymentPresenter : BasePresenter
 
-class PaymentMvp internal constructor(private val mPaymentView: PaymentView) : PaymentPresenter
+class PaymentMvp internal constructor(private val mPaymentView: PaymentView) : PaymentPresenter {
+    override fun onRemoveDatabaseListener() {
+    }
+}

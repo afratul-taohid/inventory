@@ -16,6 +16,7 @@ data class Transaction(
         var paid: Int = 0,
         var due: Int = 0,
         var change: Int = 0,
+        var chequeOrAcNo: String? = null,
         var note: String? = null,
         val products: ArrayList<ProductCart> = ArrayList(),
         val extraCost: ExtraCost = ExtraCost(),
@@ -38,3 +39,10 @@ data class TransactionHistory(
         var totalPrice: Int? = 0,
         var isPaid: Boolean = true,
         var customerName: String? = null)
+
+class TodayTransactionSummery {
+    var totalSell = 0
+    var totalSupply = 0
+    var totalDue = 0
+    var totalPayable = 0
+}

@@ -4,14 +4,6 @@
     <string name="ok">OK</string>
     <string name="bdt">৳</string>
 
-    <string-array name="product">
-        <item>C/A</item>
-        <item>A/C</item>
-        <item>C/B</item>
-        <item>B/A</item>
-        <item>E/A</item>
-    </string-array>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_home">Home</string>
@@ -46,4 +38,8 @@
     <string name="mobile_number_required">Mobile number required</string>
     <string name="invalid_code">Verification code invalid</string>
     <string name="verification_code_required">Verificaition code required</string>
+    <string name="ac_number">AC Number</string>
+    <string name="cheque_number">Cheque Number</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="supplier_name">Supplier Name</string>
 </resources>

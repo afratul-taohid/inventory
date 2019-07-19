@@ -20,11 +20,11 @@ object MyUtils {
     var FORMAT_DMYT = "EEEE MMMM dd, yyyy, hh:mm a"
     var FORMAT_DMY = "MMMM dd, yyyy"
 
-    val currentDate: String
-        get() {
-            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            return simpleDateFormat.format(Date())
-        }
+//    val currentDate: String
+//        get() {
+//            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//            return simpleDateFormat.format(Date())
+//        }
 
     val currentDateFormatted: String
         get() {

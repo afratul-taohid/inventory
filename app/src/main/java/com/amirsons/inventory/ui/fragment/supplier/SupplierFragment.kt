@@ -89,4 +89,9 @@ class SupplierFragment : BaseFragment(), SupplierView {
     override fun setSupplierToView(supplierList: ArrayList<Supplier>) {
         mSupplierAdapter.setItems(supplierList)
     }
+
+    override fun onPause() {
+        super.onPause()
+        mSupplierPresenter.onRemoveDatabaseListener()
+    }
 }

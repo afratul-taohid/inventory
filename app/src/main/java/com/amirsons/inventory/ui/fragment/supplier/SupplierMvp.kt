@@ -21,6 +21,25 @@ internal interface SupplierPresenter : BasePresenter {
 
 class SupplierMvp internal constructor(private val mSupplierView: SupplierView) : SupplierPresenter {
 
+    private val supplierListListener = object : ValueEventListener {
+
+        override fun onCancelled(p0: DatabaseError) {
+        }
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+            val supplierList = ArrayList<Supplier>()
+
+            dataSnapshot.children.forEach {
+                val supplier = it.getValue(Supplier::class.java)
+                supplier?.id = it.key
+                supplier?.let { supplierList.add(supplier) }
+            }
+
+            mSupplierView.setSupplierToView(supplierList)
+        }
+    }
+
     override fun onAddSupplierClick(supplier: Supplier) {
 
         // add new customer into database
@@ -28,25 +47,10 @@ class SupplierMvp internal constructor(private val mSupplierView: SupplierView) 
     }
 
     override fun onLoadSupplierList() {
-
-        DatabaseManager.getDatabaseRef(DatabaseNode.SUPPLIER).addValueEventListener(object : ValueEventListener {
-
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                val supplierList = ArrayList<Supplier>()
-
-                dataSnapshot.children.forEach {
-                    val supplier = it.getValue(Supplier::class.java)
-                    supplier?.id = it.key
-                    supplier?.let { supplierList.add(supplier) }
-                }
-
-                mSupplierView.setSupplierToView(supplierList)
-            }
-        })
+        DatabaseManager.getDatabaseRef(DatabaseNode.SUPPLIER).addValueEventListener(supplierListListener)
     }
 
+    override fun onRemoveDatabaseListener() {
+        DatabaseManager.getDatabaseRef(DatabaseNode.SUPPLIER).removeEventListener(supplierListListener)
+    }
 }

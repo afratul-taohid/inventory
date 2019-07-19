@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="payment_type">
         <item>Cash</item>
         <item>Bank</item>
+        <item>Cheque</item>
     </string-array>
+
+    <string-array name="product">
+        <item>C/A</item>
+        <item>A/C</item>
+        <item>C/B</item>
+        <item>B/A</item>
+        <item>E/A</item>
+    </string-array>
+
 </resources>

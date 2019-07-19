@@ -10,4 +10,8 @@ internal interface MoreView : BaseView
 
 internal interface MorePresenter : BasePresenter
 
-class MoreMvp internal constructor(private val mMoreView: MoreView) : MorePresenter
+class MoreMvp internal constructor(private val mMoreView: MoreView) : MorePresenter {
+
+    override fun onRemoveDatabaseListener() {
+    }
+}

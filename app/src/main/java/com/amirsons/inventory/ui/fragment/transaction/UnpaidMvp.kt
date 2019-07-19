@@ -20,23 +20,12 @@ internal interface UnpaidPresenter : BasePresenter {
 
 class UnpaidMvp internal constructor(private val mTransactionView: UnpaidView) : UnpaidPresenter {
 
+    override fun onRemoveDatabaseListener() {
+
+
+    }
+
     override fun onLoad() {
-
-        RetrofitClient.instance.dataSet.enqueue(object : Callback<ArrayList<Transaction>> {
-
-            override fun onResponse(call: Call<ArrayList<Transaction>>, response: Response<ArrayList<Transaction>>) {
-
-                if (response.body() != null)
-                    mTransactionView.setList(response.body() ?: ArrayList())
-
-                Log.wtf(TAG, "onResponse: ")
-            }
-
-            override fun onFailure(call: Call<ArrayList<Transaction>>, t: Throwable) {
-                mTransactionView.showToast(t.message ?: "")
-                Log.wtf(TAG, t.message)
-            }
-        })
     }
 
     companion object {

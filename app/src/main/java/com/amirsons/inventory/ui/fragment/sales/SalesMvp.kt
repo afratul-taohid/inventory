@@ -23,7 +23,6 @@ internal interface SalesView : BaseView {
 
 internal interface SalesPresenter : BasePresenter {
     fun onLoadList()
-    fun onRemoveDatabaseListener()
 }
 
 class SalesMvp internal constructor(private val mSalesView: SalesView) : SalesPresenter {

@@ -134,4 +134,7 @@ class TransactionActivityMvp internal constructor(private val mTransactionView: 
 
         mTransactionView.onTransactionComplete(true)
     }
+
+    override fun onRemoveDatabaseListener() {
+    }
 }

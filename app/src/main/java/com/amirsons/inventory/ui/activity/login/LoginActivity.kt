@@ -206,9 +206,6 @@ class LoginActivity : BaseActivity(), TextWatcher {
 
 //                final FirebaseUser user = Objects.requireNonNull(task.getResult()).getUser();
 
-//                progress_bar.visibility = View.GONE
-//                ll_otp_verification_view.visibility = View.GONE
-
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
 
