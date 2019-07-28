@@ -69,7 +69,7 @@ class TransactionActivityMvp internal constructor(private val mTransactionView: 
     override fun onTransactionDoneClick(transaction: Transaction) {
 
         // save this new transaction to database
-        DatabaseManager.add(transaction, DatabaseNode.TRANSACTION)
+        DatabaseManager.add(transaction, DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth, MyUtils.currentDate)
 
         // update products database based on transaction type
         // for transaction type sell, remove some products

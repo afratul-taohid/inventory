@@ -21,7 +21,10 @@
     <color name="light_gray">#E6E6E6</color>
     <color name="text_orange">#F76262</color>
     <color name="light_green">#46C259</color>
-    <color name="gray">#CFCFCF</color>
+    <color name="gray">#cbcbcb</color>
     <color name="dark_gray">#4B4949</color>
     <color name="total_sale_color">#3CD064</color>
+    <color name="total_supply_color">#17DBFF</color>
+    <color name="total_due_color">#FFC069</color>
+    <color name="selected_textview_color">#7014D4FB</color>
 </resources>

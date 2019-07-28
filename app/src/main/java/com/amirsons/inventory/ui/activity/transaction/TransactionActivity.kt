@@ -411,6 +411,9 @@ class TransactionActivity : BaseActivity(), TransactionActivityView {
                 // set change value to transaction model
                 transaction.change = changeValue
 
+                // set due value to 0
+                transaction.due = 0
+
             } else {
 
                 // paid value the smaller than total value
@@ -425,6 +428,9 @@ class TransactionActivity : BaseActivity(), TransactionActivityView {
 
                 // set due value to transaction model
                 transaction.due = dueValue
+
+                // set change value 0
+                transaction.change = 0
             }
 
             // if view is gone then show the view first

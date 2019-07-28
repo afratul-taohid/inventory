@@ -8,7 +8,7 @@ import com.google.firebase.database.Exclude
  */
 
 data class Transaction(
-        var date: String? = null,
+        @get:Exclude var date: String? = null,
         var customerOrSupplierId: String? = null,
         var paymentType: Int? = null,
         var transactionType: String? = null,
@@ -40,9 +40,9 @@ data class TransactionHistory(
         var isPaid: Boolean = true,
         var customerName: String? = null)
 
-class TodayTransactionSummery {
-    var totalSell = 0
-    var totalSupply = 0
-    var totalDue = 0
-    var totalPayable = 0
+class TransactionSummery {
+    var totalSell: Int = 0
+    var totalSupply: Int = 0
+    var totalDue: Int = 0
+    var totalPayable: Int = 0
 }

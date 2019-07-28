@@ -9,6 +9,7 @@ import com.amirsons.inventory.datamanager.model.Transaction
 import com.amirsons.inventory.datamanager.model.TransactionHistory
 import com.amirsons.inventory.ui.base.BasePresenter
 import com.amirsons.inventory.ui.base.BaseView
+import com.amirsons.inventory.utils.MyUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -32,45 +33,52 @@ class SuppliesMvp internal constructor(private val mSuppliesView: SuppliesView) 
 
         override fun onCancelled(p0: DatabaseError) {}
 
-        override fun onDataChange(dataSnapshot: DataSnapshot) {
+        override fun onDataChange(monthSnapshot: DataSnapshot) {
 
             // create empty list for transaction history
             val transactionHistoryList = ArrayList<TransactionHistory>()
 
             // if snapshot has children
-            if (dataSnapshot.hasChildren()) {
+            if (monthSnapshot.hasChildren()) {
 
-                dataSnapshot.children.forEachIndexed { index, it ->
+                monthSnapshot.children.forEach { dateSnapshot ->
 
-                    // get the transaction
-                    val transaction = it.getValue(Transaction::class.java)
+                    dateSnapshot.children.toList().filter { it.getValue(Transaction::class.java)?.transactionType == Constant.TRANSACTION_BUY }.let {
 
-                    // get customer details for this transaction
-                    DatabaseManager.getDatabaseRef(DatabaseNode.SUPPLIER, transaction?.customerOrSupplierId!!).addListenerForSingleValueEvent(object : ValueEventListener {
+                        it.forEachIndexed { index, transactionSnapshot ->
 
-                        override fun onCancelled(p0: DatabaseError) {}
+                            // get the transaction
+                            val transaction = transactionSnapshot.getValue(Transaction::class.java)
 
-                        override fun onDataChange(p0: DataSnapshot) {
+                            // get customer details for this transaction
+                            DatabaseManager.getDatabaseRef(DatabaseNode.SUPPLIER, transaction?.customerOrSupplierId!!).addListenerForSingleValueEvent(object : ValueEventListener {
 
-                            // get the customer object
-                            val supplier = p0.getValue(Supplier::class.java)
+                                override fun onCancelled(p0: DatabaseError) {}
 
-                            // create history model after found customer details
-                            val transactionHistory = TransactionHistory()
-                            transactionHistory.date = transaction.date
-                            transactionHistory.totalPrice = transaction.totalPrice
-                            transactionHistory.isPaid = transaction.due == 0
-                            transactionHistory.id = it.key
-                            transactionHistory.customerName = supplier?.name
+                                override fun onDataChange(p0: DataSnapshot) {
 
-                            // add the history to list
-                            transactionHistoryList.add(transactionHistory)
+                                    // get the customer object
+                                    val supplier = p0.getValue(Supplier::class.java)
 
-                            // after get all items pass history list to view presenter
-                            if (index == dataSnapshot.childrenCount.toInt() - 1)
-                                mSuppliesView.setListToView(transactionHistoryList)
+                                    // create history model after found customer details
+                                    val transactionHistory = TransactionHistory()
+                                    transactionHistory.date = "${MyUtils.currentYear}-${MyUtils.currentMonth}-${dateSnapshot.key}"
+                                    transactionHistory.totalPrice = transaction.totalPrice
+                                    transactionHistory.isPaid = transaction.due == 0
+                                    transactionHistory.id = transactionSnapshot.key
+                                    transactionHistory.customerName = supplier?.name
+
+                                    // add the history to list
+                                    transactionHistoryList.add(transactionHistory)
+
+                                    // after get all items pass history list to view presenter
+                                    if (index == it.size - 1)
+                                        mSuppliesView.setListToView(transactionHistoryList)
+                                }
+                            })
                         }
-                    })
+
+                    }
                 }
 
             } else {
@@ -81,8 +89,12 @@ class SuppliesMvp internal constructor(private val mSuppliesView: SuppliesView) 
     }
 
     override fun onLoadList() {
-        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION).orderByChild(DatabaseNode.TRANSACTION_TYPE).equalTo(Constant.TRANSACTION_BUY)
-                .addValueEventListener(suppliesListLoadListener)
+
+//        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION).orderByChild(DatabaseNode.TRANSACTION_TYPE).equalTo(Constant.TRANSACTION_BUY)
+//                .addValueEventListener(suppliesListLoadListener)
+
+        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth).addValueEventListener(suppliesListLoadListener)
+
     }
 
     override fun onRemoveDatabaseListener() {

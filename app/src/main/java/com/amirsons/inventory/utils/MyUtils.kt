@@ -18,7 +18,8 @@ import java.util.*
 object MyUtils {
 
     var FORMAT_DMYT = "EEEE MMMM dd, yyyy, hh:mm a"
-    var FORMAT_DMY = "MMMM dd, yyyy"
+//    var FORMAT_DMY = "MMMM dd, yyyy"
+    var FORMAT_DMY = "yyyy-MM-dd"
 
 //    val currentDate: String
 //        get() {
@@ -29,6 +30,24 @@ object MyUtils {
     val currentDateFormatted: String
         get() {
             val simpleDateFormat = SimpleDateFormat(FORMAT_DMY, Locale.getDefault())
+            return simpleDateFormat.format(Date())
+        }
+
+    val currentYear: String
+        get() {
+            val simpleDateFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+            return simpleDateFormat.format(Date())
+        }
+
+    val currentMonth: String
+        get() {
+            val simpleDateFormat = SimpleDateFormat("MM", Locale.getDefault())
+            return simpleDateFormat.format(Date())
+        }
+
+    val currentDate: String
+        get() {
+            val simpleDateFormat = SimpleDateFormat("dd", Locale.getDefault())
             return simpleDateFormat.format(Date())
         }
 
@@ -100,6 +119,19 @@ object MyUtils {
         val callDayTime = Date(time)
         val parseFormat = SimpleDateFormat(FORMAT_DMY, Locale.getDefault())
         return parseFormat.format(callDayTime)
+    }
+
+    fun getFormattedDateFromDate(date: Date): String {
+        val parseFormat = SimpleDateFormat(FORMAT_DMY, Locale.getDefault())
+        return parseFormat.format(date)
+    }
+
+    fun getPreviousDateFromNow(previousDayAmount: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = Date()
+        calendar.add(Calendar.DAY_OF_YEAR, previousDayAmount)
+        val newDate = calendar.time
+        return getFormattedDateFromDate(newDate)
     }
 
     fun get12HourFrom24Hour(hourOfDay: Int, minute: Int): String {

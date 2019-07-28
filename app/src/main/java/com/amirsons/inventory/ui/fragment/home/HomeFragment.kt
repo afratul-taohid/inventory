@@ -1,17 +1,25 @@
 package com.amirsons.inventory.ui.fragment.home
 
 
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.amirsons.inventory.R
-import com.amirsons.inventory.datamanager.model.TodayTransactionSummery
 import com.amirsons.inventory.datamanager.model.Transaction
+import com.amirsons.inventory.datamanager.model.TransactionSummery
+import com.amirsons.inventory.ui.activity.transaction.TransactionActivity
 import com.amirsons.inventory.ui.base.BaseFragment
+import com.amirsons.inventory.utils.MyUtils
 import com.amirsons.inventory.utils.stringspan.SpanSection
+import com.amirsons.inventory.utils.stringspan.SpanSection.Companion.TEXT_SIZE_MEDIUM
 import com.amirsons.inventory.utils.stringspan.StringSpanBuilder
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
+
 
 /**
  * A simple [BaseFragment] subclass.
@@ -19,6 +27,7 @@ import java.util.*
 class HomeFragment : BaseFragment(), HomeView {
 
     private lateinit var mHomePresenter: HomePresenter
+    private lateinit var selectedTextView: TextView
 
     override val contentLayout: Int
         get() = R.layout.fragment_home
@@ -44,89 +53,40 @@ class HomeFragment : BaseFragment(), HomeView {
 
         mHomePresenter.loadCurrentDaySummery()
 
-//        // total sale view
-//        val saleSpanBuilder = StringSpanBuilder.instance
-//
-//        val spanSection = SpanSection.getInstance("Total sale")
-//                .setTypeface(Typeface.BOLD)
-//                .setTextSize(SpanSection.TEXT_SIZE_NORMAL)
-//                .setTextColor(Color.parseColor("#B4B4B4"))
-//        saleSpanBuilder.append(spanSection)
-//
-//        saleSpanBuilder.appendNewLine()
-//        saleSpanBuilder.appendNewLine()
-//
-//        val tkSymbolSection = SpanSection.getInstance("৳ ")
-//                .setTextSize(SpanSection.TEXT_SIZE_MEDIUM)
-//        saleSpanBuilder.append(tkSymbolSection)
-//
-//        val amountSection = SpanSection.getInstance("5000")
-//                .setTextColor(Color.parseColor("#3CD064"))
-//                .setTextSize(SpanSection.TEXT_SIZE_LARGE)
-//        saleSpanBuilder.append(amountSection)
-//        saleSpanBuilder.buildWithTextView(tv_total_sale)
-//
-//        // total supply view
-//        val supplySpanBuilder = StringSpanBuilder.instance
-//        spanSection.setText("Total supply")
-//        supplySpanBuilder.append(spanSection)
-//
-//        supplySpanBuilder.appendNewLine()
-//        supplySpanBuilder.appendNewLine()
-//
-//        supplySpanBuilder.append(tkSymbolSection)
-//
-//        amountSection.setText("10000")
-//        amountSection.setTextColor(Color.parseColor("#17DBFF"))
-//        supplySpanBuilder.append(amountSection)
-//        supplySpanBuilder.buildWithTextView(tv_total_supply)
-//
-//        // paid view
-//        val paidSpanBuilder = StringSpanBuilder.instance
-//        spanSection.setText("Paid")
-//        paidSpanBuilder.append(spanSection)
-//
-//        paidSpanBuilder.appendNewLine()
-//        paidSpanBuilder.appendNewLine()
-//
-//        paidSpanBuilder.append(tkSymbolSection)
-//
-//        amountSection.setTextColor(Color.parseColor("#FFC069"))
-//        amountSection.setText("3500")
-//        paidSpanBuilder.append(amountSection)
-//        paidSpanBuilder.buildWithTextView(tv_paid)
-//
-//        // payable view
-//        val payableSpanBuilder = StringSpanBuilder.instance
-//        spanSection.setText("Payable")
-//        payableSpanBuilder.append(spanSection)
-//
-//        payableSpanBuilder.appendNewLine()
-//        payableSpanBuilder.appendNewLine()
-//
-//        payableSpanBuilder.append(tkSymbolSection)
-//
-//        amountSection.setText("3000")
-//        amountSection.setTextColor(Color.parseColor("#FFC069"))
-//        payableSpanBuilder.append(amountSection)
-//        payableSpanBuilder.buildWithTextView(tv_payable)
+        // get previous 7 days summery data
+        val lastSevenDayDate = MyUtils.getPreviousDateFromNow(-7)
+        val lastMonthDate = MyUtils.getPreviousDateFromNow(-30)
+        val toDate = MyUtils.getPreviousDateFromNow(-1)
 
-//        fab_edit.setOnClickListener {
-//            IntentUtils.instance.onActivityIntentWithoutExtras(context, TransactionActivity::class.java)
-//        }
+        selectedTextView = tv_last_week
+        mHomePresenter.loadPreviousSummery(lastSevenDayDate, toDate)
+
+        tv_last_week.setOnClickListener {
+            selectedTextView = tv_last_week
+            mHomePresenter.loadPreviousSummery(lastSevenDayDate, toDate)
+        }
+
+        tv_last_month.setOnClickListener {
+            // get previous 30 days summery data
+            selectedTextView = tv_last_month
+            mHomePresenter.loadPreviousSummery(lastMonthDate, toDate)
+        }
+
+        btn_create_transaction.setOnClickListener {
+            startActivity(Intent(context, TransactionActivity::class.java))
+        }
     }
 
-
-    override fun setList(dataList: ArrayList<Transaction>) {
+    override fun onLoadRecentSaleProductList(dataList: ArrayList<Transaction>) {
 
     }
 
-    override fun onLoadCurrentDaySummery(todayTransactionSummery: TodayTransactionSummery) {
+    override fun onLoadCurrentDaySummery(todayTransactionSummery: TransactionSummery) {
 
         // total sale view
         val saleSpanBuilder = StringSpanBuilder.instance
 
-        val spanSection = SpanSection.getInstance("Total sale")
+        val spanSection = SpanSection.getInstance("Today sale")
                 .setTypeface(Typeface.BOLD)
                 .setTextSize(SpanSection.TEXT_SIZE_NORMAL)
         saleSpanBuilder.append(spanSection)
@@ -135,14 +95,89 @@ class HomeFragment : BaseFragment(), HomeView {
         saleSpanBuilder.appendNewLine()
 
         val tkSymbolSection = SpanSection.getInstance("৳ ")
-                .setTextSize(SpanSection.TEXT_SIZE_MEDIUM)
+                .setTextSize(TEXT_SIZE_MEDIUM)
         saleSpanBuilder.append(tkSymbolSection)
 
         val amountSection = SpanSection.getInstance(todayTransactionSummery.totalSell.toString())
-                .setTextColor(context.resources.getColor(R.color.total_sale_color))
+                .setTextColor(ContextCompat.getColor(context, R.color.total_sale_color))
                 .setTextSize(SpanSection.TEXT_SIZE_LARGE)
         saleSpanBuilder.append(amountSection)
         saleSpanBuilder.buildWithTextView(tv_total_sale)
+
+        // total supply view
+        val supplySpanBuilder = StringSpanBuilder.instance
+        spanSection.setText("Today supply")
+        supplySpanBuilder.append(spanSection)
+
+        supplySpanBuilder.appendNewLine()
+        supplySpanBuilder.appendNewLine()
+
+        supplySpanBuilder.append(tkSymbolSection)
+
+        amountSection.setText(todayTransactionSummery.totalSupply.toString())
+        amountSection.setTextColor(ContextCompat.getColor(context, R.color.total_supply_color))
+        supplySpanBuilder.append(amountSection)
+        supplySpanBuilder.buildWithTextView(tv_total_supply)
+
+        // paid view
+        val paidSpanBuilder = StringSpanBuilder.instance
+        spanSection.setText("Today Due")
+        paidSpanBuilder.append(spanSection)
+
+        paidSpanBuilder.appendNewLine()
+        paidSpanBuilder.appendNewLine()
+
+        paidSpanBuilder.append(tkSymbolSection)
+
+        amountSection.setText(todayTransactionSummery.totalDue.toString())
+        amountSection.setTextColor(ContextCompat.getColor(context, R.color.total_due_color))
+        paidSpanBuilder.append(amountSection)
+        paidSpanBuilder.buildWithTextView(tv_paid)
+
+        // payable view
+        val payableSpanBuilder = StringSpanBuilder.instance
+        spanSection.setText("Today Payable")
+        payableSpanBuilder.append(spanSection)
+
+        payableSpanBuilder.appendNewLine()
+        payableSpanBuilder.appendNewLine()
+
+        payableSpanBuilder.append(tkSymbolSection)
+
+        amountSection.setText(todayTransactionSummery.totalPayable.toString())
+        amountSection.setTextColor(ContextCompat.getColor(context, R.color.total_due_color))
+        payableSpanBuilder.append(amountSection)
+        payableSpanBuilder.buildWithTextView(tv_payable)
+    }
+
+    override fun onLoadPreviousSummery(transactionSummery: TransactionSummery) {
+        setSummeryDataToView(transactionSummery)
+    }
+
+
+    /**
+     * set selected summery value
+     */
+    private fun setSummeryDataToView(transactionSummery: TransactionSummery) {
+
+        if (selectedTextView.id == R.id.tv_last_week){
+            tv_last_month.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            tv_last_month.setShadowLayer(0f, 0f, 0f, Color.parseColor("#20000000"))
+        } else{
+            tv_last_week.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            tv_last_week.setShadowLayer(0f, 0f, 0f, Color.parseColor("#20000000"))
+        }
+
+        selectedTextView.setTextColor(ContextCompat.getColor(context, R.color.selected_textview_color))
+        selectedTextView.setShadowLayer(15f, 10f, 10f, Color.parseColor("#20000000"))
+
+        val totalSellValue = "${context.getString(R.string.bdt)} ${transactionSummery.totalSell}"
+        val totalDueValue = "${context.getString(R.string.bdt)} ${transactionSummery.totalDue}"
+        val totalSupplyValue = "${context.getString(R.string.bdt)} ${transactionSummery.totalSupply}"
+
+        tv_total_sale_value.text = totalSellValue
+        tv_total_due_value.text = totalDueValue
+        tv_total_supply_value.text = totalSupplyValue
     }
 
     override fun onPause() {

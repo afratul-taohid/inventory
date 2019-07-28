@@ -14,10 +14,10 @@ class SpanSection private constructor(var spanText: String) {
     companion object {
 
         @JvmStatic val TEXT_SIZE_SMALL = .9f
-        @JvmStatic val TEXT_SIZE_NORMAL = 1f
-        @JvmStatic val TEXT_SIZE_MEDIUM = 1.2f
-        @JvmStatic val TEXT_SIZE_LARGE = 1.7f
-        @JvmStatic val TEXT_SIZE_EXTRA_LARGE = 2f
+        @JvmStatic val TEXT_SIZE_NORMAL = 1.1f
+        @JvmStatic val TEXT_SIZE_MEDIUM = 1.3f
+        @JvmStatic val TEXT_SIZE_LARGE = 1.5f
+        @JvmStatic val TEXT_SIZE_EXTRA_LARGE = 1.7f
 
         @JvmStatic val STYLE_NORMAL = Typeface.NORMAL
         @JvmStatic val STYLE_BOLD = Typeface.BOLD

@@ -30,7 +30,6 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.bottomsheet_available_product.*
 import kotlinx.android.synthetic.main.content_transaction_selected_product_cart.*
 
-
 /**
  * Created by Taohid on 10, July, 2019
  * Email: taohid32@gmail.com

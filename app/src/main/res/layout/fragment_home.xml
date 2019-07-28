@@ -27,7 +27,7 @@
                 android:id="@+id/top_dashboard"
                 android:layout_margin="@dimen/_8sdp"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_150sdp"
                 android:elevation="@dimen/_4sdp"
                 android:background="@drawable/background_dialog_cliniva">
 
@@ -106,13 +106,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/rv_product_list"
                 android:orientation="horizontal"
+                tools:listitem="@layout/item_recent_sale_item"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_100sdp"/>
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_margin="@dimen/_8sdp"
                 app:layout_constraintTop_toBottomOf="@+id/rv_product_list"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -128,32 +128,36 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp">
+                        android:layout_height="wrap_content">
 
                         <TextView
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:layout_margin="8dp"
-                            android:textSize="18sp"
-                            android:textColor="#17DBFF"
                             android:text="Last Week"
+                            android:textColor="@color/gray"
                             android:textStyle="bold"
+                            android:textSize="@dimen/_14sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:id="@+id/tv_last_week"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:padding="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
                         <TextView
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tv_last_week"
-                            android:layout_margin="8dp"
-                            android:textSize="18sp"
-                            android:textColor="#CBCBCB"
+                            android:textColor="@color/gray"
+                            android:textStyle="bold"
                             android:text="Last Month"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tv_last_week"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:id="@+id/tv_last_month"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:padding="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -161,26 +165,102 @@
 
                 <TextView
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:text="Total Sale"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintTop_toBottomOf="@+id/hsv_list_filter"
-                    android:id="@+id/tv_filter_total_sale"
-                    android:textSize="@dimen/_14sdp"
-                    android:layout_width="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/tv_filter_total_sale_hint"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toTopOf="@id/tv_filter_total_sale_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_filter_total_sale_hint"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_total_sale_hint"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_total_sale_value"
+                    android:background="@drawable/text_view_dot_line"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="2dp"
+                    android:layerType="software"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_total_sale_value"
+                    android:gravity="center"
+                    android:textSize="@dimen/_13sdp"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="@id/tv_filter_total_sale_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_filter_total_sale_hint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_filter_total_sale"
-                    android:textSize="@dimen/_14sdp"
-                    android:id="@+id/tv_filter_paid"
-                    android:layout_width="match_parent"
+                    android:text="Due"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_filter_total_sale_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/tv_filter_due_hint"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toTopOf="@id/tv_filter_due_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_filter_due_hint"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_due_hint"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_total_due_value"
+                    android:background="@drawable/text_view_dot_line"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="2dp"
+                    android:layerType="software"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_total_due_value"
+                    android:gravity="center"
+                    android:textSize="@dimen/_13sdp"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="@id/tv_filter_due_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_filter_due_hint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_filter_paid"
-                    android:textSize="@dimen/_14sdp"
-                    android:id="@+id/tv_filter_total_supply"
-                    android:layout_width="match_parent"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_filter_due_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/tv_filter_total_supply_hint"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="Total Supply"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toTopOf="@id/tv_filter_total_supply_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_filter_total_supply_hint"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_total_supply_hint"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_total_supply_value"
+                    android:background="@drawable/text_view_dot_line"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="2dp"
+                    android:layerType="software"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_total_supply_value"
+                    android:gravity="center"
+                    android:textSize="@dimen/_13sdp"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="@id/tv_filter_total_supply_hint"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_filter_total_supply_hint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -189,17 +269,17 @@
 
     </ScrollView>
 
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--android:id="@+id/fab_edit"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/_16sdp"-->
-        <!--android:layout_marginEnd="@dimen/_8sdp"-->
-        <!--android:layout_marginBottom="@dimen/_8sdp"-->
-        <!--android:src="@drawable/ic_add_circle"-->
-        <!--app:backgroundTint="@color/colorBackgroundFabButton"-->
-        <!--app:fabSize="normal"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_create_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:backgroundTint="@color/colorBackgroundFabButton"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

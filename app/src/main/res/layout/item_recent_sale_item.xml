@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_100sdp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="@dimen/_5sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:padding="@dimen/_5sdp"
+    android:background="@drawable/list_item_background">
+
+    <TextView
+        android:id="@+id/tv_header_info"
+        android:layout_marginStart="@dimen/_3sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Sun (A/C)\n300 gsm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/tv_sale_unit"
+        app:layout_constraintStart_toStartOf="@id/tv_header_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_header_info"
+        android:text="20 Unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_available_unit"
+        app:layout_constraintStart_toStartOf="@id/tv_sale_unit"
+        app:layout_constraintTop_toBottomOf="@id/tv_sale_unit"
+        android:text="20 Unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

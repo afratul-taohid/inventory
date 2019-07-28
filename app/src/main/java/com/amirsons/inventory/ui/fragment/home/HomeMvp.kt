@@ -1,11 +1,10 @@
 package com.amirsons.inventory.ui.fragment.home
 
-import android.util.Log
 import com.amirsons.inventory.app.Constant
 import com.amirsons.inventory.datamanager.firebase.DatabaseManager
 import com.amirsons.inventory.datamanager.firebase.DatabaseNode
-import com.amirsons.inventory.datamanager.model.TodayTransactionSummery
 import com.amirsons.inventory.datamanager.model.Transaction
+import com.amirsons.inventory.datamanager.model.TransactionSummery
 import com.amirsons.inventory.ui.base.BasePresenter
 import com.amirsons.inventory.ui.base.BaseView
 import com.amirsons.inventory.utils.MyUtils
@@ -13,19 +12,22 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
+
 /**
  * Created by Taohid on 06, July, 2019
  * Email: taohid32@gmail.com
  */
 
 internal interface HomeView : BaseView {
-    fun setList(dataList: ArrayList<Transaction>)
-    fun onLoadCurrentDaySummery(todayTransactionSummery: TodayTransactionSummery)
+    fun onLoadRecentSaleProductList(dataList: ArrayList<Transaction>)
+    fun onLoadCurrentDaySummery(todayTransactionSummery: TransactionSummery)
+    fun onLoadPreviousSummery(transactionSummery: TransactionSummery)
 }
 
 internal interface HomePresenter : BasePresenter {
-    fun onLoad()
+    fun loadRecentSaleProductList()
     fun loadCurrentDaySummery()
+    fun loadPreviousSummery(from: String, to: String)
 }
 
 class HomeMvp internal constructor(private val mMainView: HomeView) : HomePresenter {
@@ -36,40 +38,71 @@ class HomeMvp internal constructor(private val mMainView: HomeView) : HomePresen
 
         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-            val todayTransactionSummery = TodayTransactionSummery()
+            val transactionSummery = TransactionSummery()
 
-            Log.w("test", "${dataSnapshot.childrenCount}")
+            calculateSummeryData(dataSnapshot, transactionSummery)
 
-            dataSnapshot.children.forEach { snapshot ->
+            mMainView.onLoadCurrentDaySummery(transactionSummery)
+        }
+    }
 
-                // get the transaction
-                val transaction = snapshot.getValue(Transaction::class.java)
+    private val previousSummeryListener = object : ValueEventListener {
 
-                transaction?.let {
+        override fun onCancelled(p0: DatabaseError) {}
 
-                    if (it.transactionType == Constant.TRANSACTION_SELL) {
-                        todayTransactionSummery.totalSell.plus(it.totalPrice)
-                        todayTransactionSummery.totalDue.plus(it.due)
-                    } else {
-                        todayTransactionSummery.totalSupply.plus(it.totalPrice)
-                        todayTransactionSummery.totalPayable.plus(it.due)
-                    }
-                }
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+            val transactionSummery = TransactionSummery()
+
+            dataSnapshot.children.forEach{
+                calculateSummeryData(it, transactionSummery)
             }
 
-            mMainView.onLoadCurrentDaySummery(todayTransactionSummery)
+            mMainView.onLoadPreviousSummery(transactionSummery)
         }
     }
 
     override fun loadCurrentDaySummery() {
 
-        val currentData = MyUtils.currentDateFormatted
-
-        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION).orderByChild(DatabaseNode.TRANSACTION_DATE).equalTo(currentData)
+        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth, MyUtils.currentDate)
                 .addValueEventListener(todaySummeryListener)
     }
 
-    override fun onLoad() {
+    override fun loadPreviousSummery(from: String, to: String) {
+
+        val fromDate = from.split("-")
+        val toDate = to.split("-")
+
+        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth).orderByKey().startAt(fromDate[2]).endAt(toDate[2])
+                .addListenerForSingleValueEvent(previousSummeryListener)
+    }
+
+
+    private fun calculateSummeryData(dataSnapshot: DataSnapshot, transactionSummery: TransactionSummery) {
+
+        dataSnapshot.children.forEach { snapshot ->
+
+            // get the transaction
+            val transaction = snapshot.getValue(Transaction::class.java)
+
+            transaction?.let {
+
+                if (it.transactionType == Constant.TRANSACTION_SELL) {
+
+                    transactionSummery.totalSell += it.totalPrice
+                    transactionSummery.totalDue += it.due
+
+                } else {
+
+                    transactionSummery.totalSupply += it.totalPrice
+                    transactionSummery.totalPayable += it.due
+                }
+            }
+        }
+    }
+
+    override fun loadRecentSaleProductList() {
+
     }
 
     override fun onRemoveDatabaseListener() {
