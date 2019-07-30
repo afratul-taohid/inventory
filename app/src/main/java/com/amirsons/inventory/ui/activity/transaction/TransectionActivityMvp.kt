@@ -10,6 +10,8 @@ import com.amirsons.inventory.utils.MyUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Created by Taohid on 06, July, 2019
@@ -24,14 +26,15 @@ interface TransactionActivityView : BaseView {
 
 internal interface TransactionActivityPresenter : BasePresenter {
     fun onTransactionDoneClick(transaction: Transaction)
-    fun loadCustomerList(transactionType: String)
+    fun loadCustomerList(transactionType: String) : Job
 }
 
 class TransactionActivityMvp internal constructor(private val mTransactionView: TransactionActivityView) : TransactionActivityPresenter {
 
-    override fun loadCustomerList(transactionType: String) {
+    override fun loadCustomerList(transactionType: String) = launch {
 
-        DatabaseManager.getDatabaseRef(if (transactionType == Constant.TRANSACTION_SELL) DatabaseNode.CUSTOMER else DatabaseNode.SUPPLIER).addListenerForSingleValueEvent(object : ValueEventListener{
+        DatabaseManager.getDatabaseRef(if (transactionType == Constant.TRANSACTION_SELL) DatabaseNode.CUSTOMER else DatabaseNode.SUPPLIER)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError) {
             }
@@ -68,67 +71,70 @@ class TransactionActivityMvp internal constructor(private val mTransactionView: 
 
     override fun onTransactionDoneClick(transaction: Transaction) {
 
-        // save this new transaction to database
-        DatabaseManager.add(transaction, DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth, MyUtils.currentDate)
+        launch {
 
-        // update products database based on transaction type
-        // for transaction type sell, remove some products
-        // or type buy, add new supply products to database
-        if (transaction.transactionType == Constant.TRANSACTION_SELL) {
+            // save this new transaction to database
+            DatabaseManager.add(transaction, DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth, MyUtils.currentDate)
 
-            transaction.products.forEach {
+            // update products database based on transaction type
+            // for transaction type sell, remove some products
+            // or type buy, add new supply products to database
+            if (transaction.transactionType == Constant.TRANSACTION_SELL) {
 
-                // calculate new stock quantity after sell some product
-                val newStockQuantity = it.product!!.availableStock.minus(it.quantity)
+                transaction.products.forEach {
 
-                // update the existing product
-                val product = it.product
-                product?.availableStock = newStockQuantity
+                    // calculate new stock quantity after sell some product
+                    val newStockQuantity = it.product!!.availableStock.minus(it.quantity)
 
-                // if current retails price updated
-                if (it.isUpdatePrice){
-                    product?.retailPrice = it.unitPrice
+                    // update the existing product
+                    val product = it.product
+                    product?.availableStock = newStockQuantity
+
+                    // if current retails price updated
+                    if (it.isUpdatePrice){
+                        product?.retailPrice = it.unitPrice
+                    }
+
+                    // update current product new stock quantity
+                    DatabaseManager.update(product, DatabaseNode.PRODUCT, it.product?.brand!!, it.productId!!)
                 }
 
-                // update current product new stock quantity
-                DatabaseManager.update(product, DatabaseNode.PRODUCT, it.product?.brand!!, it.productId!!)
-            }
-
-
-            if (transaction.due > 0) {
-                // add current due to previous due
-                val receivableAmount = transaction.due.plus(transaction.customerOrSupplierPreviousAmount)
-
-                // update customer last invoice date and receivable amount
-                DatabaseManager.update(receivableAmount, DatabaseNode.CUSTOMER, transaction.customerOrSupplierId!!, DatabaseNode.CUSTOMER_RECEIVABLE_AMOUNT)
-            }
-
-            DatabaseManager.update(MyUtils.currentDateFormatted, DatabaseNode.CUSTOMER, transaction.customerOrSupplierId!!, DatabaseNode.LAST_INVOICE)
-
-        } else {
-
-            transaction.products.forEach {
-
-                // calculate new stock quantity after buy some product
-                val newStockQuantity = it.product!!.availableStock.plus(it.quantity)
-
-                // update the existing product
-                val product = it.product
-                product?.availableStock = newStockQuantity
-                product?.lastSupply = MyUtils.currentDateFormatted
-
-                // update current product new stock quantity
-                DatabaseManager.update(product, DatabaseNode.PRODUCT, it.product?.brand!!, it.productId!!)
 
                 if (transaction.due > 0) {
-                    // add current due to previous payable amount
-                    val payableAmount = transaction.due.plus(transaction.customerOrSupplierPreviousAmount)
+                    // add current due to previous due
+                    val receivableAmount = transaction.due.plus(transaction.customerOrSupplierPreviousAmount)
 
                     // update customer last invoice date and receivable amount
-                    DatabaseManager.update(payableAmount, DatabaseNode.SUPPLIER, transaction.customerOrSupplierId!!, DatabaseNode.SUPPLIER_PAYABLE_AMOUNT)
+                    DatabaseManager.update(receivableAmount, DatabaseNode.CUSTOMER, transaction.customerOrSupplierId!!, DatabaseNode.CUSTOMER_RECEIVABLE_AMOUNT)
                 }
 
-                DatabaseManager.update(MyUtils.currentDateFormatted, DatabaseNode.SUPPLIER, transaction.customerOrSupplierId!!, DatabaseNode.LAST_INVOICE)
+                DatabaseManager.update(MyUtils.currentDateFormatted, DatabaseNode.CUSTOMER, transaction.customerOrSupplierId!!, DatabaseNode.LAST_INVOICE)
+
+            } else {
+
+                transaction.products.forEach {
+
+                    // calculate new stock quantity after buy some product
+                    val newStockQuantity = it.product!!.availableStock.plus(it.quantity)
+
+                    // update the existing product
+                    val product = it.product
+                    product?.availableStock = newStockQuantity
+                    product?.lastSupply = MyUtils.currentDateFormatted
+
+                    // update current product new stock quantity
+                    DatabaseManager.update(product, DatabaseNode.PRODUCT, it.product?.brand!!, it.productId!!)
+
+                    if (transaction.due > 0) {
+                        // add current due to previous payable amount
+                        val payableAmount = transaction.due.plus(transaction.customerOrSupplierPreviousAmount)
+
+                        // update customer last invoice date and receivable amount
+                        DatabaseManager.update(payableAmount, DatabaseNode.SUPPLIER, transaction.customerOrSupplierId!!, DatabaseNode.SUPPLIER_PAYABLE_AMOUNT)
+                    }
+
+                    DatabaseManager.update(MyUtils.currentDateFormatted, DatabaseNode.SUPPLIER, transaction.customerOrSupplierId!!, DatabaseNode.LAST_INVOICE)
+                }
             }
         }
 

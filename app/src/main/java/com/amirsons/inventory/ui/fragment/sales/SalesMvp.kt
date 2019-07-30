@@ -17,13 +17,15 @@ import com.amirsons.inventory.utils.MyUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 internal interface SalesView : BaseView {
     fun setListToView(transactionHistoryList: ArrayList<TransactionHistory>)
 }
 
 internal interface SalesPresenter : BasePresenter {
-    fun onLoadList()
+    fun onLoadList() : Job
 }
 
 class SalesMvp internal constructor(private val mSalesView: SalesView) : SalesPresenter {
@@ -86,7 +88,7 @@ class SalesMvp internal constructor(private val mSalesView: SalesView) : SalesPr
         }
     }
 
-    override fun onLoadList() {
+    override fun onLoadList() = launch {
 
         DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth).addValueEventListener(salesListLoadListener)
     }

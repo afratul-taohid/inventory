@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/_100sdp"
+    android:layout_width="@dimen/_110sdp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="@dimen/_5sdp"
-    android:layout_margin="@dimen/_5sdp"
-    android:padding="@dimen/_5sdp"
+    android:elevation="@dimen/_3sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:padding="@dimen/_3sdp"
     android:background="@drawable/list_item_background">
 
     <TextView
@@ -19,18 +22,30 @@
         />
 
     <TextView
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:textSize="@dimen/_10sdp"
+        android:drawableStart="@drawable/ic_sale_tag"
         android:id="@+id/tv_sale_unit"
+        android:textColor="@color/light_green"
         app:layout_constraintStart_toStartOf="@id/tv_header_info"
         app:layout_constraintTop_toBottomOf="@id/tv_header_info"
-        android:text="20 Unit"
+        android:text=" 20 Unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:textSize="@dimen/_10sdp"
+        android:drawableStart="@drawable/ic_store_black"
+        android:textColor="@color/total_due_color"
         android:id="@+id/tv_available_unit"
         app:layout_constraintStart_toStartOf="@id/tv_sale_unit"
         app:layout_constraintTop_toBottomOf="@id/tv_sale_unit"
-        android:text="20 Unit"
+        android:text=" 20 Unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

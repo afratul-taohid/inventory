@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -521,7 +522,6 @@ class TransactionActivity : BaseActivity(), TransactionActivityView {
     override fun onTransactionComplete(success: Boolean) {
 
         if (success){
-            Toast.makeText(this, "Transaction complete", Toast.LENGTH_LONG).show()
             finish()
         }
     }
@@ -530,6 +530,7 @@ class TransactionActivity : BaseActivity(), TransactionActivityView {
      * set the customer list to autocomplete textview to show suggestion
      */
     override fun onCustomerSearchListLoaded(searchListItems: ArrayList<CustomerOrSupplierSearchItem>) {
+
         customerSearchAdapter.setDataList(searchListItems)
     }
 }

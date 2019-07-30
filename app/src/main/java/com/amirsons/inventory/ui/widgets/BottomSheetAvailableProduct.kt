@@ -150,6 +150,7 @@ class BottomSheetAvailableProduct(context: Context, private val transactionType:
             
             productCart.product = selectedProduct
             productCart.productId = selectedProduct.productId
+            productCart.brand = selectedProduct.brand
             productCart.quantity = unit.toInt()
             productCart.unitPrice = parUnitPrice.toInt()
 

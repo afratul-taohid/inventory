@@ -6,14 +6,18 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.amirsons.inventory.R
-import com.amirsons.inventory.datamanager.model.Transaction
+import com.amirsons.inventory.datamanager.model.RecentSaleProduct
 import com.amirsons.inventory.datamanager.model.TransactionSummery
 import com.amirsons.inventory.ui.activity.transaction.TransactionActivity
 import com.amirsons.inventory.ui.base.BaseFragment
-import com.amirsons.inventory.utils.MyUtils
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerClickListener
+import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.ui.recyclerview.base.RecyclerViewAdapter
+import com.amirsons.inventory.ui.recyclerview.viewholder.RecentSaleProductHolder
 import com.amirsons.inventory.utils.stringspan.SpanSection
 import com.amirsons.inventory.utils.stringspan.SpanSection.Companion.TEXT_SIZE_MEDIUM
 import com.amirsons.inventory.utils.stringspan.StringSpanBuilder
@@ -26,6 +30,7 @@ import java.util.*
  */
 class HomeFragment : BaseFragment(), HomeView {
 
+    private lateinit var recentSaleProductAdapter: RecyclerViewAdapter<RecentSaleProduct, BaseRecyclerClickListener<RecentSaleProduct>>
     private lateinit var mHomePresenter: HomePresenter
     private lateinit var selectedTextView: TextView
 
@@ -51,25 +56,22 @@ class HomeFragment : BaseFragment(), HomeView {
         super.onViewCreated(view, savedInstanceState)
         setToolbar(view, "Dashboard", false)
 
+        initRecentSaleProductView()
+
         mHomePresenter.loadCurrentDaySummery()
 
-        // get previous 7 days summery data
-        val lastSevenDayDate = MyUtils.getPreviousDateFromNow(-7)
-        val lastMonthDate = MyUtils.getPreviousDateFromNow(-30)
-        val toDate = MyUtils.getPreviousDateFromNow(-1)
-
         selectedTextView = tv_last_week
-        mHomePresenter.loadPreviousSummery(lastSevenDayDate, toDate)
+        mHomePresenter.loadCurrentWeekSummery()
 
         tv_last_week.setOnClickListener {
             selectedTextView = tv_last_week
-            mHomePresenter.loadPreviousSummery(lastSevenDayDate, toDate)
+            mHomePresenter.loadCurrentWeekSummery()
         }
 
         tv_last_month.setOnClickListener {
             // get previous 30 days summery data
             selectedTextView = tv_last_month
-            mHomePresenter.loadPreviousSummery(lastMonthDate, toDate)
+            mHomePresenter.loadCurrentMonthSummery()
         }
 
         btn_create_transaction.setOnClickListener {
@@ -77,11 +79,25 @@ class HomeFragment : BaseFragment(), HomeView {
         }
     }
 
-    override fun onLoadRecentSaleProductList(dataList: ArrayList<Transaction>) {
+    private fun initRecentSaleProductView() {
 
+        recentSaleProductAdapter = object : RecyclerViewAdapter<RecentSaleProduct, BaseRecyclerClickListener<RecentSaleProduct>>(){
+
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder<RecentSaleProduct, BaseRecyclerClickListener<RecentSaleProduct>> {
+                return RecentSaleProductHolder(inflate(R.layout.item_recent_sale_item, parent))
+            }
+        }
+
+        rv_product_list.adapter = recentSaleProductAdapter
+    }
+
+    override fun onLoadRecentSaleProductList(dataList: ArrayList<RecentSaleProduct>) {
+        recentSaleProductAdapter.setItems(dataList)
     }
 
     override fun onLoadCurrentDaySummery(todayTransactionSummery: TransactionSummery) {
+
+        println("coroutine: I'm working in thread ${Thread.currentThread().name}")
 
         // total sale view
         val saleSpanBuilder = StringSpanBuilder.instance
@@ -150,10 +166,13 @@ class HomeFragment : BaseFragment(), HomeView {
         payableSpanBuilder.buildWithTextView(tv_payable)
     }
 
-    override fun onLoadPreviousSummery(transactionSummery: TransactionSummery) {
+    override fun onLoadCurrentWeekSummery(transactionSummery: TransactionSummery) {
         setSummeryDataToView(transactionSummery)
     }
 
+    override fun onLoadCurrentMonthSummery(transactionSummery: TransactionSummery) {
+        setSummeryDataToView(transactionSummery)
+    }
 
     /**
      * set selected summery value

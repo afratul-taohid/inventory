@@ -5,6 +5,7 @@ import com.amirsons.inventory.R
 import com.amirsons.inventory.datamanager.model.TransactionHistory
 import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerClickListener
 import com.amirsons.inventory.ui.recyclerview.base.BaseRecyclerViewHolder
+import com.amirsons.inventory.utils.MyUtils
 import kotlinx.android.synthetic.main.item_transaction_history.view.*
 
 /**
@@ -17,7 +18,7 @@ class TransactionHistoryHolder(itemView: View): BaseRecyclerViewHolder<Transacti
 
         val priceText = "${context.getString(R.string.bdt)} ${item.totalPrice}"
         
-        itemView.tv_name.text = item.customerName
+        itemView.tv_name.text = MyUtils.capitalizeFirstLatter(item.customerName)
         itemView.tv_date.text = item.date
         itemView.tv_price.text = priceText
         

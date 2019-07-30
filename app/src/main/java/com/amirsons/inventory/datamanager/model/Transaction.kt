@@ -25,6 +25,7 @@ data class Transaction(
 data class ProductCart(var productId: String? = null) {
     @get:Exclude var product: Product? = null
     @get:Exclude var isUpdatePrice: Boolean = false
+    var brand: String? = null
     var unitPrice: Int = 0
     var quantity: Int = 0
 }

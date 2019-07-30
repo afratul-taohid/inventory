@@ -8,6 +8,8 @@ import com.amirsons.inventory.ui.base.BaseView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 
 internal interface SupplierView : BaseView {
@@ -15,7 +17,7 @@ internal interface SupplierView : BaseView {
 }
 
 internal interface SupplierPresenter : BasePresenter {
-    fun onLoadSupplierList()
+    fun onLoadSupplierList() : Job
     fun onAddSupplierClick(supplier: Supplier)
 }
 
@@ -46,7 +48,7 @@ class SupplierMvp internal constructor(private val mSupplierView: SupplierView) 
         DatabaseManager.add(supplier, DatabaseNode.SUPPLIER)
     }
 
-    override fun onLoadSupplierList() {
+    override fun onLoadSupplierList() = launch {
         DatabaseManager.getDatabaseRef(DatabaseNode.SUPPLIER).addValueEventListener(supplierListListener)
     }
 

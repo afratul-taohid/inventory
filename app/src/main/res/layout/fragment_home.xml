@@ -100,7 +100,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 app:layout_constraintTop_toBottomOf="@+id/top_dashboard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
                 android:orientation="horizontal"
                 tools:listitem="@layout/item_recent_sale_item"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,7 +147,7 @@
                         <TextView
                             android:textColor="@color/gray"
                             android:textStyle="bold"
-                            android:text="Last Month"
+                            android:text="Current Month"
                             android:textSize="@dimen/_14sdp"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"

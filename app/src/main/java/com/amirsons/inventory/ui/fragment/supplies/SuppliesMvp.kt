@@ -13,6 +13,8 @@ import com.amirsons.inventory.utils.MyUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Created by Taohid on 07, July, 2019
@@ -24,7 +26,7 @@ internal interface SuppliesView : BaseView {
 }
 
 internal interface SuppliesPresenter : BasePresenter {
-    fun onLoadList()
+    fun onLoadList() : Job
 }
 
 class SuppliesMvp internal constructor(private val mSuppliesView: SuppliesView) : SuppliesPresenter {
@@ -77,7 +79,6 @@ class SuppliesMvp internal constructor(private val mSuppliesView: SuppliesView) 
                                 }
                             })
                         }
-
                     }
                 }
 
@@ -88,13 +89,9 @@ class SuppliesMvp internal constructor(private val mSuppliesView: SuppliesView) 
         }
     }
 
-    override fun onLoadList() {
-
-//        DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION).orderByChild(DatabaseNode.TRANSACTION_TYPE).equalTo(Constant.TRANSACTION_BUY)
-//                .addValueEventListener(suppliesListLoadListener)
+    override fun onLoadList() = launch {
 
         DatabaseManager.getDatabaseRef(DatabaseNode.TRANSACTION, MyUtils.currentYear, MyUtils.currentMonth).addValueEventListener(suppliesListLoadListener)
-
     }
 
     override fun onRemoveDatabaseListener() {

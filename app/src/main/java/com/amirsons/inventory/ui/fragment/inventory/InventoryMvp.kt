@@ -9,6 +9,8 @@ import com.amirsons.inventory.ui.base.BaseView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 internal interface InventoryView : BaseView {
     fun setBrandListToView(brandList: ArrayList<BrandProduct>)
@@ -16,7 +18,7 @@ internal interface InventoryView : BaseView {
 }
 
 internal interface InventoryPresenter : BasePresenter {
-    fun onLoadProductList()
+    fun onLoadProductList() : Job
     fun onAddProduct(product: Product)
     fun onAddProductClick()
 }
@@ -86,7 +88,7 @@ class InventoryMvp internal constructor(private val mInventoryView: InventoryVie
         DatabaseManager.add(product, DatabaseNode.PRODUCT, product.brand!!)
     }
 
-    override fun onLoadProductList() {
+    override fun onLoadProductList() = launch {
 
         // add an event for add product listener
         DatabaseManager.getDatabaseRef(DatabaseNode.PRODUCT).addValueEventListener(productLoadListener)

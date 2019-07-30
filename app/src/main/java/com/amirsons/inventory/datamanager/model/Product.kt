@@ -19,3 +19,10 @@ data class Product(var productId: String? = null,
 data class BrandProduct(val brand: String, val productList: ArrayList<Product>){
     var isSelected = false
 }
+
+data class RecentSaleProduct(var brand: String,  var category: String){
+    var todayTotalSale: Int = 0
+    var availableStock: Int = 0
+    var productId: String? = null
+    var weight: String? = null
+}

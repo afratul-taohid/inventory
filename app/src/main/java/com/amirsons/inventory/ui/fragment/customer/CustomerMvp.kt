@@ -8,6 +8,8 @@ import com.amirsons.inventory.ui.base.BaseView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Created by Taohid on 06, July, 2019
@@ -19,7 +21,7 @@ internal interface CustomerView : BaseView {
 }
 
 internal interface CustomerPresenter : BasePresenter {
-    fun onLoadCustomerList()
+    fun onLoadCustomerList() : Job
     fun onAddCustomerClick(customer: Customer)
 }
 
@@ -52,7 +54,7 @@ class CustomerMvp internal constructor(private val mCustomerView: CustomerView) 
         DatabaseManager.add(customer, DatabaseNode.CUSTOMER)
     }
 
-    override fun onLoadCustomerList() {
+    override fun onLoadCustomerList() = launch {
         DatabaseManager.getDatabaseRef(DatabaseNode.CUSTOMER).addValueEventListener(customerLoadListener)
     }
 

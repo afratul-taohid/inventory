@@ -28,7 +28,7 @@ object DatabaseManager {
     /**
      * create empty node inside given reference [databaseReference] and pass the unique id
      */
-    private fun createNewId(databaseReference: DatabaseReference) : String? {
+    fun createNewId(databaseReference: DatabaseReference) : String? {
         return databaseReference.push().key
     }
 
